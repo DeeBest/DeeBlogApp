@@ -1,0 +1,18 @@
+#nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  list-style: none;
+}
+#nav-icons li {
+  padding: 5px;
+  text-align: center;
+  transition: transform 350ms ease-in-out;
+}
+#nav-icons li:hover {
+  transform: rotateZ(45deg) scale(1.1);
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
