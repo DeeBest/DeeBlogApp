@@ -1,9 +1,6 @@
-footer {
-  display: flex;
+footer .container-div {
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
-footer p {
+footer .container-div p {
   font-size: small;
 }

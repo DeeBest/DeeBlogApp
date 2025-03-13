@@ -5,7 +5,10 @@ import App from './App.jsx';
 import ContextProvider from './context/context.jsx';
 import './index.css';
 
-ReactDOM.createRoot(document.querySelector('#root')).render(
+const root = document.querySelector('#root');
+root.className = 'flex-1 flex min-h-screen min-w-screen place-content-center';
+
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <BrowserRouter>
       <ContextProvider>
