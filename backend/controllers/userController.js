@@ -108,4 +108,33 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, createUser, getSingleUser, updateUser };
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ message: 'ID required' });
+  }
+
+  try {
+    const user = await User.findOne({ _id: id });
+
+    if (!user) {
+      return res.status(404).json({ message: `No user found with ID ${id} ` });
+    }
+
+    await user.deleteOne();
+
+    res.status(204).json({ message: `Successfully deleted ${user.username}` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getAllUsers,
+  createUser,
+  getSingleUser,
+  updateUser,
+  deleteUser,
+};
