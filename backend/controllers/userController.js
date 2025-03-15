@@ -43,4 +43,25 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, createUser };
+const getSingleUser = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ message: 'Please provide ID.' });
+  }
+
+  try {
+    const user = await User.findOne({ _id: id }).exec();
+
+    if (!user) {
+      return res.status(404).json({ message: `No user with ${id} ID.` });
+    }
+
+    res.status(200).json({ message: 'Success', user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getAllUsers, createUser, getSingleUser };
