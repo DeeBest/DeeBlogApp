@@ -7,9 +7,13 @@ const mongoose = require('mongoose');
 const connectDB = require('./config/databaseConfig');
 connectDB();
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
   return res.status(200).json({ message: 'welcome to DeeBlogApp backend' });
 });
+
+app.use('/api/users', require('./routes/userRoutes'));
 
 app.all('*', (req, res) => {
   return res.status(404).json({ message: 'route not found' });

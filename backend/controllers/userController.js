@@ -7,13 +7,40 @@ const getAllUsers = async (req, res) => {
     const users = await User.find();
 
     if (!users) {
-      return res.status(204).json({ message: 'No users found' });
+      return res.status(204).json({ message: 'No users found.' });
     }
 
-    res.status(200).json(users);
+    res.status(200).json({ message: 'Success', users });
   } catch (err) {
     console.error(err);
+    res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { getAllUsers };
+const createUser = async (req, res) => {
+  const { username, email, password } = req.body;
+
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required.' });
+  }
+
+  try {
+    const duplicateUser = await User.findOne({ email }).exec();
+
+    if (duplicateUser) {
+      return res
+        .status(409)
+        .json({ message: `A user with ${email} email already exists.` });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await User.create({ username, email, password: hashedPassword });
+    res.status(201).json({ message: `Successfully created ${username} user.` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getAllUsers, createUser };
