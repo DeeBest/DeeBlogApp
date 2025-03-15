@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 const mongoose = require('mongoose');
 const connectDB = require('./config/databaseConfig');
-
 connectDB();
 
 app.get('/', (req, res) => {
@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 });
 
 app.all('*', (req, res) => {
-  return res.status(400).json({ message: 'route not found' });
+  return res.status(404).json({ message: 'route not found' });
 });
 
 mongoose.connection.once('open', () => {
