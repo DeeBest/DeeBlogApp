@@ -1,4 +1,3 @@
-import './header.css';
 import { Link } from 'react-router-dom';
 import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
