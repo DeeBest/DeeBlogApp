@@ -14,7 +14,7 @@ const Header = () => {
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
   return (
-    <header className="sticky top-0 z-10 min-w-full bg-slate-200 dark:bg-slate-950">
+    <header className="sticky top-0 z-10 min-w-full bg-slate-200 dark:bg-slate-950 shadow-sm shadow-gray-400 dark:shadow-black">
       <section className="max-w-4xl p-4 flex justify-between items-center gap-3 mx-auto relative">
         <Link to="/">
           <div className="flex justify-center items-center">
