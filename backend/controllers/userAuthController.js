@@ -53,4 +53,39 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login };
+const logout = async (req, res) => {
+  const cookies = req.cookies;
+
+  if (!cookies?.jwt) {
+    return res.status(204).json({ message: 'No cookie' });
+  }
+
+  const refreshToken = cookies.jwt;
+
+  try {
+    const user = await User.findOne({ refreshToken });
+    if (!user) {
+      res.clearCookie('jwt', {
+        httpOnly: true,
+        sameSite: 'None',
+        secure: true,
+      });
+      return res
+        .status(204)
+        .json({ message: 'No user found but cookie cleared.' });
+    }
+
+    user.refreshToken = '';
+    await user.save();
+
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    res
+      .status(204)
+      .json({ message: `Successfully logged out ${user.username}` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { login, logout };

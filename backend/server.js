@@ -1,19 +1,27 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
+
+const credentials = require('./middleware/credentials');
+
 const PORT = process.env.PORT || 3000;
 
 const mongoose = require('mongoose');
 const connectDB = require('./config/databaseConfig');
 connectDB();
 
+app.use(credentials);
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   return res.status(200).json({ message: 'welcome to DeeBlogApp backend' });
 });
 
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/auth', require('./routes/userAuthRoutes'));
 
 app.all('*', (req, res) => {
   return res.status(404).json({ message: 'route not found' });
