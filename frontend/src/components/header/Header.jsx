@@ -1,27 +1,47 @@
 import './header.css';
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+
   return (
     <header className="sticky top-0 z-10 min-w-full bg-slate-200 dark:bg-slate-950">
-      <section className="max-w-4xl p-4 flex items-center mx-auto gap-10 relative">
+      <section className="max-w-4xl p-4 flex justify-between items-center gap-3 mx-auto relative">
         <Link to="/">
           <div className="flex justify-center items-center">
             <div className="w-16 h-16 flex justify-center items-center bg-rose-400 rounded-full"></div>
-            <h1 className="text-2xl font-extrabold italic z-10 -ml-16">
+            <h1 className="text-xl md:text-2xl font-extrabold italic z-10 -ml-16">
               DeeBlogApp
             </h1>
           </div>
         </Link>
-        <nav className="flex-1 gap-5 flex justify-between items-center p-4">
+        <label htmlFor="posts-search-input" className="hidden">
+          Search Posts
+        </label>
+        <input
+          id="posts-search-input"
+          type="text"
+          minLength={5}
+          maxLength={100}
+          placeholder="Search"
+          className="w-24 md:flex-1 rounded-lg bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 font-semibold border-none outline-none shadow-lg focus:outline-2 focus:outline-rose-400"
+        />
+        <button
+          onClick={toggleDarkMode}
+          className="flex justify-center items-center bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 w-8 h-8 rounded-full text-xl"
+        >
+          {isDarkMode ? <FaSun /> : <FaMoon />}
+        </button>
+        <nav className="gap-5 flex justify-between items-center p-4">
           <div className="flex-1 hidden justify-center items-center gap-4 sm:flex">
             <Link className="hover:opacity-70" to="/">
               Home
@@ -29,7 +49,7 @@ const Header = () => {
             <Link className="hover:opacity-70" to="/posts">
               Posts
             </Link>
-            <button className="bg-slate-800 text-slate-100 p-2 rounded-md dark:bg-slate-100 dark:text-slate-800 font-bold transition-transform hover:scale-95 ml-auto">
+            <button className="bg-slate-800 text-slate-100 p-1 w-24 rounded-md dark:bg-slate-100 dark:text-slate-800 font-bold transition-transform hover:scale-95 ml-auto">
               Sign In
             </button>
           </div>
