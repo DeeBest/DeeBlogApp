@@ -31,6 +31,7 @@ const SignUp = () => {
   const [matchPasswordFocus, setMatchPasswordFocus] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -62,6 +63,8 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setErrorMessage('');
 
     //if submit button is enabled with js hack
     const v1 = USER_REGEX.test(username);
@@ -86,7 +89,14 @@ const SignUp = () => {
       navigate('/');
     } catch (error) {
       console.error(error);
-      setErrorMessage(error.response.data.message);
+
+      if (error.status === 409) {
+        setErrorMessage('That email is already registered.');
+      } else {
+        setErrorMessage(error.message);
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -140,7 +150,7 @@ const SignUp = () => {
             placeholder="Username"
             ref={usernameRef}
             autoComplete="off"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value.trim())}
             required
             aria-invalid={validUsername ? 'false' : 'true'}
             aria-describedby="usernameNote"
@@ -186,7 +196,7 @@ const SignUp = () => {
             placeholder="example@email.com"
             ref={emailRef}
             autoComplete="off"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.trim())}
             required
             aria-invalid={validEmail ? 'false' : 'true'}
             aria-describedby="emailNote"
@@ -233,7 +243,7 @@ const SignUp = () => {
             type="password"
             id="password"
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value.trim())}
             required
             aria-invalid={validPassword ? 'false' : 'true'}
             aria-describedby="passwordNote"
@@ -284,7 +294,7 @@ const SignUp = () => {
             className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="password"
             id="confirm-password"
-            onChange={(e) => setMatchPassword(e.target.value)}
+            onChange={(e) => setMatchPassword(e.target.value.trim())}
             required
             placeholder="Password"
             aria-invalid={validMatchPassword ? 'false' : 'true'}
@@ -305,17 +315,27 @@ const SignUp = () => {
           </p>
           <button
             className={
-              !validUsername || !validPassword || !validMatchPassword
-                ? 'bg-slate-500 dark:bg-slate-100 dark:text-slate-500 w-1/2 self-center rounded-lg p-1 border-[1px] border-cyan-500 mb-2 opacity-80 cursor-not-allowed'
-                : 'bg-slate-500 dark:bg-slate-100 dark:text-slate-500 w-1/2 self-center rounded-lg p-1 border-[1px] border-cyan-500 hover:opacity-90 duration-300 mb-2 cursor-pointer'
+              !validUsername ||
+              !validPassword ||
+              !validMatchPassword ||
+              isLoading
+                ? 'flex justify-center items-center bg-slate-500 dark:bg-slate-100 dark:text-slate-500 w-1/2 self-center rounded-lg p-1 border-[1px] border-cyan-500 mb-2 opacity-80 cursor-not-allowed'
+                : 'flex justify-center items-center bg-slate-500 dark:bg-slate-100 dark:text-slate-500 w-1/2 self-center rounded-lg p-1 border-[1px] border-cyan-500 hover:opacity-90 duration-300 mb-2 cursor-pointer'
             }
             disabled={
-              !validUsername || !validPassword || !validMatchPassword
+              !validUsername ||
+              !validPassword ||
+              !validMatchPassword ||
+              isLoading
                 ? true
                 : false
             }
           >
-            Sign up
+            {isLoading ? (
+              <div className="w-4 h-4 rounded-full bg-transparent border-2 border-t-transparent border-slate-500 animate-spin"></div>
+            ) : (
+              'Sign up'
+            )}
           </button>
           <p>
             Already a member?{' '}
