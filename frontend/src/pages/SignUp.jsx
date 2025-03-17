@@ -4,16 +4,22 @@ import Logo from '../components/Logo';
 import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const EMAIL_REGEX = /^((?=.*[a-zA-Z])(?=.*[@])(?=.*[.])).{4,50}$/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const SignUp = () => {
   const usernameRef = useRef();
+  const emailRef = useRef();
   const errorRef = useRef();
 
   const [username, setUsername] = useState('');
   const [validUsername, setValidUsername] = useState(false);
   const [usernameFocus, setUsernameFocus] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
 
   const [password, setPassword] = useState('');
   const [validPassword, setValidPassword] = useState(false);
@@ -24,7 +30,6 @@ const SignUp = () => {
   const [matchPasswordFocus, setMatchPasswordFocus] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     usernameRef.current.focus();
@@ -34,6 +39,11 @@ const SignUp = () => {
     const result = USER_REGEX.test(username);
     setValidUsername(result);
   }, [username]);
+
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    setValidEmail(result);
+  }, [email]);
 
   useEffect(() => {
     const result = PASSWORD_REGEX.test(password);
@@ -58,8 +68,9 @@ const SignUp = () => {
       setErrorMessage('Invalid entry');
       return;
     }
-    console.log(username, password);
-    setSuccess(true);
+    console.log(`Username: ${username}\n
+      Email: ${email}\n
+      Password: ${password}`);
   };
 
   return (
@@ -106,7 +117,7 @@ const SignUp = () => {
             </span>
           </label>
           <input
-            className="border-none outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="text"
             id="username"
             placeholder="Username"
@@ -134,13 +145,53 @@ const SignUp = () => {
           </p>
           <label className="flex items-center gap-1" htmlFor="email">
             Email:
+            <span
+              className={
+                validEmail ? 'inline-block text-sm text-green-300' : 'hidden'
+              }
+            >
+              <FaCheck />
+            </span>
+            <span
+              className={
+                validEmail || !email
+                  ? 'hidden'
+                  : 'inline-block text-sm text-red-300'
+              }
+            >
+              <FaTimes />
+            </span>
           </label>
           <input
-            className="border-none outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="email"
             id="email"
             placeholder="example@email.com"
+            ref={emailRef}
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            aria-invalid={validEmail ? 'false' : 'true'}
+            aria-describedby="emailNote"
+            onFocus={() => setEmailFocus(true)}
+            onBlur={() => setEmailFocus(false)}
           />
+          <p
+            id="emailNote"
+            className={
+              emailFocus && email && !validEmail
+                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                : 'translate-[10000%] opacity-0 h-0'
+            }
+          >
+            <FaInfoCircle className="block text-red-300 text-base mb-1" />
+            5 to 50 characters. <br />
+            Must begin with a letter. <br />
+            Must contain the following symbol.
+            <br />
+            <span aria-label="At symbol">@</span> <br /> Letter, numbers,
+            underscores and hyphens allowed.
+          </p>
           <label className="flex items-center gap-1" htmlFor="password">
             Password:
             <span
@@ -161,7 +212,7 @@ const SignUp = () => {
             </span>
           </label>
           <input
-            className="border-none outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="password"
             id="password"
             placeholder="Password"
@@ -213,11 +264,12 @@ const SignUp = () => {
             </span>
           </label>
           <input
-            className="border-none outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="password"
             id="confirm-password"
             onChange={(e) => setMatchPassword(e.target.value)}
             required
+            placeholder="Password"
             aria-invalid={validMatchPassword ? 'false' : 'true'}
             aria-describedby="confirmPasswordNote"
             onFocus={() => setMatchPasswordFocus(true)}
@@ -235,7 +287,11 @@ const SignUp = () => {
             Must match the first password input field.
           </p>
           <button
-            className="bg-slate-500 dark:bg-slate-100 dark:text-slate-500 w-1/2 self-center rounded-lg p-1 border-[1px] border-cyan-500 hover:opacity-80 duration-300 mb-2"
+            className={
+              !validUsername || !validPassword || !validMatchPassword
+                ? 'bg-slate-500 dark:bg-slate-100 dark:text-slate-500 w-1/2 self-center rounded-lg p-1 border-[1px] border-cyan-500 mb-2 opacity-80 cursor-not-allowed'
+                : 'bg-slate-500 dark:bg-slate-100 dark:text-slate-500 w-1/2 self-center rounded-lg p-1 border-[1px] border-cyan-500 hover:opacity-90 duration-300 mb-2 cursor-pointer'
+            }
             disabled={
               !validUsername || !validPassword || !validMatchPassword
                 ? true
