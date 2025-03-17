@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import Logo from '../components/Logo';
 import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
+import customAxios from '../api/axios';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^((?=.*[a-zA-Z])(?=.*[@])(?=.*[.])).{4,50}$/;
@@ -30,6 +31,8 @@ const SignUp = () => {
   const [matchPasswordFocus, setMatchPasswordFocus] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     usernameRef.current.focus();
@@ -68,9 +71,23 @@ const SignUp = () => {
       setErrorMessage('Invalid entry');
       return;
     }
-    console.log(`Username: ${username}\n
-      Email: ${email}\n
-      Password: ${password}`);
+
+    try {
+      await customAxios.post('/users', {
+        username,
+        email,
+        password,
+      });
+
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setMatchPassword('');
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(error.response.data.message);
+    }
   };
 
   return (
@@ -135,7 +152,7 @@ const SignUp = () => {
             className={
               usernameFocus && username && !validUsername
                 ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
-                : 'translate-[10000%] opacity-0 h-0'
+                : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
             <FaInfoCircle className="block text-red-300 text-base mb-1" />
@@ -181,7 +198,7 @@ const SignUp = () => {
             className={
               emailFocus && email && !validEmail
                 ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
-                : 'translate-[10000%] opacity-0 h-0'
+                : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
             <FaInfoCircle className="block text-red-300 text-base mb-1" />
@@ -228,7 +245,7 @@ const SignUp = () => {
             className={
               passwordFocus && !validPassword
                 ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
-                : 'translate-[10000%] opacity-0 h-0'
+                : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
             <FaInfoCircle className="block text-red-300 text-base mb-1" />
@@ -280,7 +297,7 @@ const SignUp = () => {
             className={
               matchPasswordFocus && !validMatchPassword
                 ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
-                : 'translate-[10000%] opacity-0 h-0'
+                : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
             <FaInfoCircle className="block text-red-300 text-base mb-1" />
