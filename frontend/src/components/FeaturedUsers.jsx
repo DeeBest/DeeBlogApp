@@ -18,9 +18,9 @@ const FeaturedUsers = () => {
     fetchUsers();
   }, []);
   return (
-    <section className="bg-indigo-200 p-1 flex flex-col gap-2 items-center rounded-md">
-      <h1 className="text-xl text-rose-400 font-semibold">Featured Users</h1>
-      <hr className="w-1/3 h-[4px] bg-slate-500 rounded-md" />
+    <section className="bg-indigo-200 p-1 flex flex-col gap-2 items-center rounded-md row-span-2">
+      <h1 className="text-2xl text-slate-400 font-semibold">Featured Users</h1>
+      <hr className="w-1/3 h-[4px] bg-rose-400 rounded-md" />
       <div className="flex flex-col gap-1 w-full mt-4">
         {users.map((user) => {
           return (
@@ -35,7 +35,7 @@ const FeaturedUsers = () => {
               </div>
               <Link
                 to={`/users/user-profile/${user._id}`}
-                className="text-md font-semibold text-slate-500 border-b-2 border-b-red-400 rounded-b-sm"
+                className="text-md font-semibold text-slate-400 border-b-2 border-b-rose-400 rounded-b-sm"
               >
                 {user.username}
               </Link>
