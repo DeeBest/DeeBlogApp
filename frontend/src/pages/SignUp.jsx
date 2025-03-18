@@ -103,7 +103,14 @@ const SignUp = () => {
   return (
     <div className="flex-1 w-full flex flex-col justify-center items-center gap-5 p-1 sm:flex-row">
       <section className="flex-1 flex flex-col justify-center items-center p-2 gap-5 z-0">
-        <Logo />
+        <Link to="/">
+          <div className="flex justify-center items-center">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex justify-center items-center bg-rose-500 rounded-full border-[1px] border-cyan-500"></div>
+            <h1 className="text-slate-50 dark:text-slate-700 text-2xl sm:text-3xl md:text-4xl -ml-12 md:-ml-16 font-extrabold italic z-10 p-1 bg-gradient-to-l from-rose-300 via-rose-400 to-rose-500 rounded-xl">
+              DeeBlogApp
+            </h1>
+          </div>
+        </Link>
         <p className="text-sm sm:text-xl text-indigo-400 capitalize">
           Join the most productive{' '}
           <span className="text-rose-400 font-bold italic">MERN</span> stack
