@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users/auth', require('./routes/userAuthRoutes'));
+app.use('/api/users/auth/refresh', require('./routes/refreshTokenRoute'));
 app.use('/api/users', require('./routes/userRoutes'));
 
 app.all('*', (req, res) => {
