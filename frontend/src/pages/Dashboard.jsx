@@ -1,9 +1,7 @@
-import refreshToken from '../utils/refreshToken';
-
 const Dashboard = () => {
   return (
     <div>
-      <button onClick={refreshToken}>refresh</button>
+      <h1>Dashboard</h1>
     </div>
   );
 };
