@@ -32,7 +32,7 @@ const SignIn = () => {
     setErrorMessage('');
 
     try {
-      const res = await customAxios.post('/users/auth', {
+      const res = await customAxios.post('/users/auth/login', {
         email,
         password,
       });
