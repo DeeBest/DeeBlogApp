@@ -11,6 +11,7 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/home/Home';
 import ErrorPage from './pages/errorPage/ErrorPage';
 import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           {/* public routes */}
           <Route path="/" element={<Home />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
 
           {/* catch all page */}
           <Route path="*" element={<ErrorPage />} />

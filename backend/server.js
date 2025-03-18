@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/auth', require('./routes/userAuthRoutes'));
+app.use('/api/users/auth', require('./routes/userAuthRoutes'));
 
 app.all('*', (req, res) => {
   return res.status(404).json({ message: 'route not found' });

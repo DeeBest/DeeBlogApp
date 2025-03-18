@@ -53,7 +53,7 @@ const Footer = () => {
         </div>
       </div>
       <hr className="w-4/5 h-[1px] mt-2 bg-slate-500 rounded-md shadow-sm" />
-      <div className="flex flex-col justify-center items-center">
+      <div className="w-full flex flex-col justify-between items-center gap-3 sm:flex-row">
         <p className="text-[9.5px] sm:text-xs font-thin">
           &copy;All rights reserved || Created and Maintained By Simphiwe{' '}
           {new Date().getFullYear()}.
