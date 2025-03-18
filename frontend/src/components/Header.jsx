@@ -49,8 +49,8 @@ const Header = () => {
             <Link className="hover:opacity-70 duration-300" to="/posts">
               Posts
             </Link>
-            <Link className="hover:opacity-70 duration-300" to="/sign-up">
-              Sign Up
+            <Link className="hover:opacity-70 duration-300" to="/sign-in">
+              Sign In
             </Link>
           </div>
           <div
@@ -98,9 +98,9 @@ const Header = () => {
             </Link>
             <Link
               className="w-full hover:bg-slate-200 dark:hover:bg-slate-600 duration-300 p-2 text-center"
-              to="/sign-up"
+              to="/sign-in"
             >
-              Sign Up
+              Sign In
             </Link>
           </div>
         </nav>

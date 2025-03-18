@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import customAxios from '../api/axios';
+import AuthContext from '../context/authContext';
 
 const SignIn = () => {
   const emailRef = useRef();
@@ -14,6 +15,8 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const { setAuth } = useContext(AuthContext);
 
   useEffect(() => {
     emailRef.current.focus();
@@ -29,10 +32,13 @@ const SignIn = () => {
     setErrorMessage('');
 
     try {
-      await customAxios.post('/users/auth', {
+      const res = await customAxios.post('/users/auth', {
         email,
         password,
       });
+
+      const accessToken = await res?.data?.accessToken;
+      setAuth({ email, password, accessToken });
 
       setEmail('');
       setPassword('');
