@@ -23,8 +23,8 @@ app.get('/', (req, res) => {
   return res.status(200).json({ message: 'welcome to DeeBlogApp backend' });
 });
 
-app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/users/auth', require('./routes/userAuthRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 app.all('*', (req, res) => {
   return res.status(404).json({ message: 'route not found' });
