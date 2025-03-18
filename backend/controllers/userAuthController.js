@@ -46,7 +46,9 @@ const login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({ message: 'Success', accessToken });
+    const username = user.username;
+
+    res.status(200).json({ message: 'Success', accessToken, username });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });

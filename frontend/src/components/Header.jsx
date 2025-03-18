@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Logo from './Logo';
+import AuthContext from '../context/authContext';
+import placeholderImg from '../assets/placeholder-img.png';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const { auth } = useContext(AuthContext);
 
   const toggleMobileMenu = () => {
     const toggleMobileMenuBtn = document.getElementById(
@@ -46,12 +50,22 @@ const Header = () => {
             <Link className="hover:opacity-70 duration-300" to="/">
               Home
             </Link>
+
             <Link className="hover:opacity-70 duration-300" to="/posts">
               Posts
             </Link>
-            <Link className="hover:opacity-70 duration-300" to="/sign-in">
-              Sign In
-            </Link>
+
+            {auth?.username ? (
+              <div className="flex justify-center items-center">
+                <Link to="/profile hover:opacity-70 duration-300">
+                  {auth.username}
+                </Link>
+              </div>
+            ) : (
+              <Link className="hover:opacity-70 duration-300" to="/sign-in">
+                Sign In
+              </Link>
+            )}
           </div>
           <div
             id="toggle-mobile-menu-btn"

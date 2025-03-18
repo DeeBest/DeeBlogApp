@@ -38,7 +38,8 @@ const SignIn = () => {
       });
 
       const accessToken = await res?.data?.accessToken;
-      setAuth({ email, password, accessToken });
+      const username = await res?.data?.username;
+      setAuth({ username, accessToken });
 
       setEmail('');
       setPassword('');
