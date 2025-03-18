@@ -10,4 +10,12 @@ const customAxios = axios.create({
   withCredentials: true,
 });
 
+export const AxiosInterceptor = axios.create({
+  baseURL: BACKEND_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+});
+
 export default customAxios;
