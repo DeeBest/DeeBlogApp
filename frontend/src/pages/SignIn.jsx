@@ -39,7 +39,8 @@ const SignIn = () => {
 
       const accessToken = await res?.data?.accessToken;
       const username = await res?.data?.username;
-      setAuth({ email, password, username, accessToken });
+      const id = await res?.data?.id;
+      setAuth({ email, password, username, accessToken, id });
 
       setEmail('');
       setPassword('');

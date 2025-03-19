@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import Logo from '../components/Logo';
 import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import customAxios from '../api/axios';
 

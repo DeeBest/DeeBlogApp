@@ -82,14 +82,6 @@ const updateUser = async (req, res) => {
     }
 
     if (req?.body?.email) {
-      const duplicate = await User.findOne({ email: req.body.email });
-
-      if (duplicate) {
-        return res
-          .status(409)
-          .json({ message: `A user with ${req.body.email} already exists.` });
-      }
-
       user.email = req.body.email;
     }
 

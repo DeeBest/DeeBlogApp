@@ -1,16 +1,18 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa';
 import { useContext, useState } from 'react';
 import Logo from './Logo';
 import AuthContext from '../context/authContext';
 import placeholderImg from '../assets/placeholder-img.png';
 import ThemeContext from '../context/ThemeContext';
+import { Context } from '../context/context';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const { auth } = useContext(AuthContext);
   const { toggleTheme, theme } = useContext(ThemeContext);
+  const { linkClass } = useContext(Context);
 
   const toggleMobileMenu = () => {
     const toggleMobileMenuBtn = document.getElementById(
@@ -50,24 +52,28 @@ const Header = () => {
         </button>
         <nav className="gap-3 sm:gap-5 flex justify-between items-center p-4">
           <div className="flex-1 hidden justify-center items-center gap-4 sm:flex ml-auto">
-            <Link className="hover:opacity-70 duration-300" to="/">
+            <NavLink className={linkClass} to="/">
               Home
-            </Link>
+            </NavLink>
 
-            <Link className="hover:opacity-70 duration-300" to="/posts">
+            <NavLink className={linkClass} to="/posts">
               Posts
-            </Link>
+            </NavLink>
 
             {auth?.username ? (
-              <div className="flex justify-center items-center">
-                <Link to="/dashboard" className="hover:opacity-70 duration-300">
-                  {auth.username}
-                </Link>
-              </div>
+              <NavLink to="/dashboard" className={linkClass}>
+                <div className="w-8 h-8 rounded-full">
+                  <img
+                    src={placeholderImg}
+                    alt="placeholder image"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+              </NavLink>
             ) : (
-              <Link className="hover:opacity-70 duration-300" to="/sign-in">
+              <NavLink className={linkClass} to="/sign-in">
                 Sign In
-              </Link>
+              </NavLink>
             )}
           </div>
           <div
@@ -101,24 +107,24 @@ const Header = () => {
           onClick={toggleMobileMenu}
         >
           <div className="flex items-center gap-2 flex-col min-w-full overflow-hidden">
-            <Link
+            <NavLink
               className="w-full hover:bg-slate-200 dark:hover:bg-slate-600 duration-300 p-2 text-center"
               to="/"
             >
               Home
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               className="w-full hover:bg-slate-200 dark:hover:bg-slate-600 duration-300 p-2 text-center"
               to="/posts"
             >
               Posts
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               className="w-full hover:bg-slate-200 dark:hover:bg-slate-600 duration-300 p-2 text-center"
               to="/sign-in"
             >
               Sign In
-            </Link>
+            </NavLink>
           </div>
         </nav>
       </section>
