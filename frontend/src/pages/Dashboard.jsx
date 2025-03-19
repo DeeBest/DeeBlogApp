@@ -108,6 +108,20 @@ const Dashboard = () => {
     }
   };
 
+  const handleDeleteUser = async () => {
+    setIsLoading(true);
+    setErrorMessage('');
+
+    try {
+      await customAxios.delete(`/users/delete-user/${auth.id}`);
+      setAuth({});
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(error.message);
+    }
+  };
+
   return (
     <div className="flex-1 w-full h-full flex flex-col sm:flex-row sm:text-center gap-3 p-2 mx-auto">
       <div
@@ -380,7 +394,10 @@ const Dashboard = () => {
           </button>
         </form>
         <div className="flex-1 min-w-[300px] max-w-[450px] flex justify-between items-center mt-3 text-red-600 font-medium">
-          <button className={`hover:opacity-70 duration-300`}>
+          <button
+            className={`hover:opacity-70 duration-300`}
+            onClick={handleDeleteUser}
+          >
             Delete Account
           </button>
           <button
