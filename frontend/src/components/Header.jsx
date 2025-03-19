@@ -4,12 +4,14 @@ import { useContext, useState } from 'react';
 import Logo from './Logo';
 import AuthContext from '../context/authContext';
 import placeholderImg from '../assets/placeholder-img.png';
+import { Context } from '../context/context';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const { auth } = useContext(AuthContext);
+  const { toggleTheme } = useContext(Context);
 
   const toggleMobileMenu = () => {
     const toggleMobileMenuBtn = document.getElementById(
@@ -22,10 +24,17 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    toggleTheme();
+  };
 
   return (
-    <header className="sticky top-0 z-10 min-w-full bg-slate-200 dark:bg-slate-950 shadow-sm shadow-gray-400 dark:shadow-black">
+    <header
+      className={`sticky top-0 z-10 min-w-full ${
+        isDarkMode ? 'bg-slate-800' : 'bg-slate-300'
+      } shadow-sm shadow-gray-400`}
+    >
       <section className="max-w-4xl p-4 flex justify-between items-center gap-3 mx-auto relative">
         <Logo />
         <label htmlFor="posts-search-input" className="hidden">
