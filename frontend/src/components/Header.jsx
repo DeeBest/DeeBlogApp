@@ -4,14 +4,13 @@ import { useContext, useState } from 'react';
 import Logo from './Logo';
 import AuthContext from '../context/authContext';
 import placeholderImg from '../assets/placeholder-img.png';
-import { Context } from '../context/context';
+import ThemeContext from '../context/ThemeContext';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const { auth } = useContext(AuthContext);
-  const { toggleTheme } = useContext(Context);
+  const { toggleTheme, theme } = useContext(ThemeContext);
 
   const toggleMobileMenu = () => {
     const toggleMobileMenuBtn = document.getElementById(
@@ -24,15 +23,10 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    toggleTheme();
-  };
-
   return (
     <header
       className={`sticky top-0 z-10 min-w-full ${
-        isDarkMode ? 'bg-slate-800' : 'bg-slate-300'
+        theme === 'dark' ? 'bg-slate-800' : 'bg-slate-300'
       } shadow-sm shadow-gray-400`}
     >
       <section className="max-w-4xl p-4 flex justify-between items-center gap-3 mx-auto relative">
@@ -49,10 +43,10 @@ const Header = () => {
           className="w-14 sm:flex-1 rounded-lg bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 font-semibold border-none outline-none shadow-lg focus:outline-[1px] focus:outline-cyan-500"
         />
         <button
-          onClick={toggleDarkMode}
+          onClick={toggleTheme}
           className="flex justify-center items-center bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 w-8 h-8 rounded-full text-xl border-[1px] border-cyan-500 hover:animate-pulse"
         >
-          {isDarkMode ? <FaSun /> : <FaMoon />}
+          {theme === 'dark' ? <FaSun /> : <FaMoon />}
         </button>
         <nav className="gap-3 sm:gap-5 flex justify-between items-center p-4">
           <div className="flex-1 hidden justify-center items-center gap-4 sm:flex ml-auto">
@@ -66,7 +60,7 @@ const Header = () => {
 
             {auth?.username ? (
               <div className="flex justify-center items-center">
-                <Link to="/profile hover:opacity-70 duration-300">
+                <Link to="/dashboard" className="hover:opacity-70 duration-300">
                   {auth.username}
                 </Link>
               </div>

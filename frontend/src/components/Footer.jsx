@@ -6,7 +6,6 @@ const Footer = () => {
   return (
     <footer className="flex flex-col justify-center items-center gap-3 w-full max-w-4xl mx-auto p-4">
       <div className="w-full flex justify-between gap-4">
-        <Logo />
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-3">
           <div className="flex flex-col justify-start items-start gap-1 text-xs sm:text-[12px] p-1">
             <h1 className="text-sm sm:text-base font-semibold text-slate-400 mb-1">
@@ -51,6 +50,8 @@ const Footer = () => {
             </Link>
           </div>
         </div>
+
+        <Logo />
       </div>
       <hr className="w-4/5 h-[1px] mt-2 bg-slate-500 rounded-md shadow-sm" />
       <div className="w-full flex flex-col justify-between items-center gap-3 sm:flex-row">

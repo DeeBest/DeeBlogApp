@@ -1,21 +1,32 @@
-import { createContext, useContext } from 'react';
-import { Context } from './context';
+import { createContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext({});
 
 export const ThemeProvider = ({ children }) => {
-  const { theme } = useContext(Context);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light');
+  };
 
   return (
-    <div
-      className={
-        theme === 'light'
-          ? 'bg-slate-100 text-slate-600'
-          : 'bg-slate-900 text-slate-300'
-      }
-    >
-      {children}
-    </div>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div
+        className={`
+          ${
+            theme === 'light'
+              ? 'bg-slate-100 text-slate-600'
+              : 'bg-slate-900 text-slate-300'
+          }
+         min-w-full min-h-screen`}
+      >
+        {children}
+      </div>
+    </ThemeContext.Provider>
   );
 };
 
