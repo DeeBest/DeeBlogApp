@@ -91,7 +91,7 @@ const SignIn = () => {
             Email:
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="email"
             id="email"
             placeholder="example@email.com"
@@ -104,7 +104,7 @@ const SignIn = () => {
             Password:
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="password"
             id="password"
             placeholder="Password"

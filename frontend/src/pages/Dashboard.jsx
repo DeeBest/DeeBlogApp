@@ -12,6 +12,7 @@ import {
 } from 'react-icons/fa';
 import placeholderImg from '../assets/placeholder-img.png';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
+import toggleOverlay from '../utils/toggleOverlay';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^((?=.*[a-zA-Z])(?=.*[@])(?=.*[.])).{4,50}$/;
@@ -123,7 +124,24 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex-1 w-full h-full flex flex-col sm:flex-row sm:text-center gap-3 p-2 mx-auto">
+    <div className="flex-1 w-full h-full flex flex-col sm:flex-row sm:text-center gap-3 p-2 mx-auto relative">
+      <div className="overlay z-[1000] absolute top-[-100%] left-0 h-full w-full bg-[#000000ca] flex justify-center items-center transition-all -translate-y-full duration-500 rounded-md">
+        <div className="bg-white flex flex-col gap-3 p-2 text-slate-700 rounded-lg">
+          <p>are you sure you want delete your account?</p>
+          <button
+            className="bg-red-600 p-1 rounded-md mt-3 font-bold"
+            onClick={handleDeleteUser}
+          >
+            Yes, I am sure
+          </button>
+          <button
+            className="bg-green-300 p-1 rounded-md font-bold"
+            onClick={toggleOverlay}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
       <div
         className={`sm:w-1/4 w-full flex flex-col p-2 gap-3 ${
           theme === 'light' ? 'bg-indigo-100' : 'dark:bg-slate-700'
@@ -195,7 +213,7 @@ const Dashboard = () => {
             </span>
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="text"
             id="username"
             placeholder="Username"
@@ -213,7 +231,7 @@ const Dashboard = () => {
             id="usernameNote"
             className={
               usernameFocus && username && !validUsername
-                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                ? 'bg-gray-600 text-slate-200 p-1 rounded-md text-xs font-thin'
                 : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
@@ -242,7 +260,7 @@ const Dashboard = () => {
             </span>
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="email"
             id="email"
             placeholder="example@email.com"
@@ -260,7 +278,7 @@ const Dashboard = () => {
             id="emailNote"
             className={
               emailFocus && email && !validEmail
-                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                ? 'bg-gray-600 text-slate-200 p-1 rounded-md text-xs font-thin'
                 : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
@@ -292,7 +310,7 @@ const Dashboard = () => {
             </span>
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="password"
             id="password"
             placeholder="Password"
@@ -308,7 +326,7 @@ const Dashboard = () => {
             id="passwordNote"
             className={
               passwordFocus && !validPassword
-                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                ? 'bg-gray-600 text-slate-200 p-1 rounded-md text-xs font-thin'
                 : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
@@ -345,7 +363,7 @@ const Dashboard = () => {
             </span>
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="password"
             id="confirm-password"
             onChange={(e) => setMatchPassword(e.target.value.trim())}
@@ -360,7 +378,7 @@ const Dashboard = () => {
             id="confirmPasswordNote"
             className={
               matchPasswordFocus && !validMatchPassword
-                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                ? 'bg-gray-600 text-slate-200 p-1 rounded-md text-xs font-thin'
                 : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
@@ -396,7 +414,7 @@ const Dashboard = () => {
         <div className="flex-1 min-w-[300px] max-w-[450px] flex justify-between items-center mt-3 text-red-600 font-medium">
           <button
             className={`hover:opacity-70 duration-300`}
-            onClick={handleDeleteUser}
+            onClick={toggleOverlay}
           >
             Delete Account
           </button>

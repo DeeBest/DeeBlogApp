@@ -150,7 +150,7 @@ const SignUp = () => {
             </span>
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="text"
             id="username"
             placeholder="Username"
@@ -167,7 +167,7 @@ const SignUp = () => {
             id="usernameNote"
             className={
               usernameFocus && username && !validUsername
-                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                ? 'bg-gray-600 text-slate-200 p-1 rounded-md text-xs font-thin'
                 : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
@@ -196,7 +196,7 @@ const SignUp = () => {
             </span>
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="email"
             id="email"
             placeholder="example@email.com"
@@ -213,7 +213,7 @@ const SignUp = () => {
             id="emailNote"
             className={
               emailFocus && email && !validEmail
-                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                ? 'bg-gray-600 text-slate-200 p-1 rounded-md text-xs font-thin'
                 : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
@@ -245,7 +245,7 @@ const SignUp = () => {
             </span>
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="password"
             id="password"
             placeholder="Password"
@@ -260,7 +260,7 @@ const SignUp = () => {
             id="passwordNote"
             className={
               passwordFocus && !validPassword
-                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                ? 'bg-gray-600 text-slate-200 p-1 rounded-md text-xs font-thin'
                 : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
@@ -297,7 +297,7 @@ const SignUp = () => {
             </span>
           </label>
           <input
-            className="outline-none rounded-md bg-slate-200 dark:bg-gray-600 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             type="password"
             id="confirm-password"
             onChange={(e) => setMatchPassword(e.target.value.trim())}
@@ -312,7 +312,7 @@ const SignUp = () => {
             id="confirmPasswordNote"
             className={
               matchPasswordFocus && !validMatchPassword
-                ? 'bg-gray-600 p-1 rounded-md text-xs font-thin'
+                ? 'bg-gray-600 text-slate-200 p-1 rounded-md text-xs font-thin'
                 : 'translateX-[10000%] -z-10 opacity-0 h-0'
             }
           >
