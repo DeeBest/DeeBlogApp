@@ -15,6 +15,7 @@ import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import RequireAuth from './utils/RequireAuth';
 import Posts from './pages/Posts';
+import Persist from './utils/Persist';
 
 const App = () => {
   return (

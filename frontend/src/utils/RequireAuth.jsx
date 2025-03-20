@@ -6,7 +6,6 @@ const RequireAuth = () => {
   const { auth } = useContext(AuthContext);
   const location = useLocation();
 
-  //  state={{ from: location }} replace
   return auth?.username ? (
     <Outlet />
   ) : (

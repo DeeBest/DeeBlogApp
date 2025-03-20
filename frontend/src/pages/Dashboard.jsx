@@ -10,6 +10,7 @@ import {
   FaTimes,
   FaCheck,
 } from 'react-icons/fa';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import placeholderImg from '../assets/placeholder-img.png';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import toggleOverlay from '../utils/toggleOverlay';
@@ -77,8 +78,21 @@ const Dashboard = () => {
   }, [username, password, matchPassword]);
 
   const handleLogout = async () => {
-    setAuth({});
-    navigate('/');
+    setIsLoading(true);
+    setErrorMessage('');
+    try {
+      const res = await customAxios.get(`/users/auth/logout`);
+
+      if (res.status === 204) {
+        setAuth({});
+        navigate('/');
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleUpdate = async (e) => {
@@ -125,17 +139,18 @@ const Dashboard = () => {
 
   return (
     <div className="flex-1 w-full h-full flex flex-col sm:flex-row sm:text-center gap-3 p-2 mx-auto relative">
-      <div className="overlay z-[1000] absolute top-[-100%] left-0 h-full w-full bg-[#000000ca] flex justify-center items-center transition-all -translate-y-full duration-500 rounded-md">
+      <div className="overlay z-9 absolute top-[-100%] left-0 h-full w-full bg-[#000000ca] flex justify-center items-center transition-all -translate-y-full duration-500 rounded-md">
         <div className="bg-white flex flex-col gap-3 p-2 text-slate-700 rounded-lg">
+          <HiOutlineExclamationCircle className="text-5xl self-center font-bold" />
           <p>are you sure you want delete your account?</p>
           <button
-            className="bg-red-600 p-1 rounded-md mt-3 font-bold"
+            className="bg-red-500 p-1 rounded-md mt-3 font-bold hover:opacity-80 hover:scale-95 duration-300"
             onClick={handleDeleteUser}
           >
             Yes, I am sure
           </button>
           <button
-            className="bg-green-300 p-1 rounded-md font-bold"
+            className="bg-green-500 p-1 rounded-md font-bold hover:opacity-80 hover:scale-95 duration-300"
             onClick={toggleOverlay}
           >
             Cancel
