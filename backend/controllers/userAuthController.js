@@ -52,7 +52,9 @@ const login = async (req, res) => {
     const username = user.username;
     const id = user._id;
 
-    res.status(200).json({ message: 'Success', accessToken, username, id });
+    res
+      .status(200)
+      .json({ message: 'Success', accessToken, username, id, roles });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });

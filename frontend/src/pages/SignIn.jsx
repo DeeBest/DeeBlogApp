@@ -40,7 +40,8 @@ const SignIn = () => {
       const accessToken = await res?.data?.accessToken;
       const username = await res?.data?.username;
       const id = await res?.data?.id;
-      setAuth({ email, password, username, accessToken, id });
+      const roles = await res?.data?.roles;
+      setAuth({ email, password, username, accessToken, id, roles });
 
       setEmail('');
       setPassword('');
