@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 
+const rolesList = require('../config/rolesList');
+const verifyRoles = require('../middleware/verifyRoles');
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();

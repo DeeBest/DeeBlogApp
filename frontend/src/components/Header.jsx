@@ -60,7 +60,7 @@ const Header = () => {
               Posts
             </NavLink>
 
-            {auth?.username ? (
+            {auth?.accessToken ? (
               <NavLink to="/dashboard" className={linkClass}>
                 <div className="w-8 h-8 rounded-full">
                   <img

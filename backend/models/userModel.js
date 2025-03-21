@@ -19,6 +19,13 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
+    roles: {
+      user: {
+        type: Number,
+        default: 2022,
+      },
+      admin: Number,
+    },
   },
   {
     timestamps: true,

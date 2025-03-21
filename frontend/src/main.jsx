@@ -11,14 +11,14 @@ const root = document.querySelector('#root');
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <ContextProvider>
-        <BrowserRouter>
-          <AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <ThemeProvider>
+          <ContextProvider>
             <App />
-          </AuthProvider>
-        </BrowserRouter>
-      </ContextProvider>
-    </ThemeProvider>
+          </ContextProvider>
+        </ThemeProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
