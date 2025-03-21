@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import AuthContext from '../context/authContext';
 import ThemeContext from '../context/ThemeContext';
 import { Context } from '../context/context';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   FaUser,
   FaArrowRight,
@@ -175,7 +175,8 @@ const Dashboard = () => {
               className={`text-[10px] font-semibold bg-slate-400 text-slate-700
               } p-[1px] rounded`}
             >
-              USER
+              {/* {auth.roles.includes(2001) ? 'ADMIN' : 'USER'} */}
+              user
             </p>
           </div>
         </NavLink>
@@ -426,6 +427,13 @@ const Dashboard = () => {
             )}
           </button>
         </form>
+        {auth?.roles?.includes(2001) && (
+          <Link to="/create-post" className="">
+            <button className="border-2 border-rose-400 p-2 rounded-md hover:opacity-85 duration-300">
+              Create Post
+            </button>
+          </Link>
+        )}
         <div className="flex-1 min-w-[300px] max-w-[450px] flex justify-between items-center mt-3 text-red-600 font-medium">
           <button
             className={`hover:opacity-70 duration-300`}

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef, useContext } from 'react';
 import customAxios from '../api/axios';
 import AuthContext from '../context/authContext';
@@ -15,6 +15,8 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || '/';
 
   const { setAuth } = useContext(AuthContext);
 
@@ -45,7 +47,8 @@ const SignIn = () => {
 
       setEmail('');
       setPassword('');
-      navigate('/dashboard');
+      // navigate('/dashboard');
+      navigate(from, { replace: true });
     } catch (error) {
       console.error(error);
 

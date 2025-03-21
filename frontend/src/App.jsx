@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -15,6 +16,8 @@ import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import RequireAuth from './utils/RequireAuth';
 import Posts from './pages/Posts';
+import CreatePost from './pages/CreatePost';
+import Unauthorized from './pages/Unauthorized';
 
 const App = () => {
   return (
@@ -26,11 +29,16 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="sign-in" element={<SignIn />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
 
           {/* Protected Routes - Wrapped Individually */}
-          <Route element={<RequireAuth />}>
+          <Route element={<RequireAuth allowedRoles={[2022]} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/posts" element={<Posts />} />
+          </Route>
+
+          <Route element={<RequireAuth allowedRoles={[2001]} />}>
+            <Route path="/create-post" element={<CreatePost />} />
           </Route>
 
           {/* Catch-All Route */}
@@ -38,6 +46,7 @@ const App = () => {
         </Route>
       </Routes>
       <Footer />
+      <ToastContainer />
     </>
   );
 };
