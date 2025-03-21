@@ -17,12 +17,15 @@ const login = async (req, res) => {
 
     const matchPassword = await bcrypt.compare(password, user.password);
     if (!matchPassword) {
-      return res.status(403).json({ message: 'Unauthorized' });
+      return res.status(403).json({ message: 'Forbidden' });
     }
+
+    const roles = Object.values(user.roles);
 
     const accessToken = await jwt.sign(
       {
         username: user.username,
+        roles,
       },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '15m' }

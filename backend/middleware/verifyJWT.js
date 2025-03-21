@@ -12,6 +12,7 @@ const verifyJWT = (req, res, next) => {
     if (err) return res.status(403).json({ message: 'Unauthorized' });
 
     req.username = decodedInfo.username;
+    req.roles = decodedInfo.roles;
     next();
   });
 };
