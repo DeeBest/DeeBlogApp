@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -46,7 +47,7 @@ const App = () => {
         </Route>
       </Routes>
       <Footer />
-      <ToastContainer />
+      <ToastContainer className="z-[10000]" />
     </>
   );
 };

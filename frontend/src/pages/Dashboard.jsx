@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import AuthContext from '../context/authContext';
 import ThemeContext from '../context/ThemeContext';
-import { Context } from '../context/context';
+import useGlobal from '../hooks/useGlobal';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   FaUser,
@@ -14,6 +14,8 @@ import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import placeholderImg from '../assets/placeholder-img.png';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import toggleOverlay from '../utils/toggleOverlay';
+import useAuth from '../hooks/useAuth';
+import useTheme from '../hooks/useTheme';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^((?=.*[a-zA-Z])(?=.*[@])(?=.*[.])).{4,50}$/;
@@ -21,9 +23,9 @@ const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Dashboard = () => {
-  const { auth, setAuth } = useContext(AuthContext);
-  const { theme } = useContext(ThemeContext);
-  const { linkClass } = useContext(Context);
+  const { auth, setAuth } = useAuth();
+  const { theme } = useTheme();
+  const { linkClass, handleLogout } = useGlobal();
 
   const [username, setUsername] = useState(auth?.username);
   const [validUsername, setValidUsername] = useState(false);
@@ -46,6 +48,7 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
   const customAxios = useAxiosInterceptor();
+  const { successToast, errorToast } = useGlobal();
 
   const usernameRef = useRef();
   const emailRef = useRef();
@@ -77,24 +80,6 @@ const Dashboard = () => {
     setErrorMessage('');
   }, [username, password, matchPassword]);
 
-  const handleLogout = async () => {
-    setIsLoading(true);
-    setErrorMessage('');
-    try {
-      const res = await customAxios.get(`/users/auth/logout`);
-
-      if (res.status === 204) {
-        setAuth({});
-        navigate('/');
-      }
-    } catch (error) {
-      console.log(error);
-      setErrorMessage(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleUpdate = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -106,6 +91,7 @@ const Dashboard = () => {
 
     if (!v1 || !v2) {
       setErrorMessage('Invalid entry');
+      errorToast('Invalid entry');
       return;
     }
 
@@ -115,9 +101,11 @@ const Dashboard = () => {
         email,
         password,
       });
+      successToast('Successfully updated your details.');
     } catch (error) {
       console.error(error);
       setErrorMessage(error.message);
+      errorToast('Failed to update details.');
     } finally {
       setIsLoading(false);
     }
@@ -130,9 +118,11 @@ const Dashboard = () => {
     try {
       await customAxios.delete(`/users/delete-user/${auth.id}`);
       setAuth({});
+      successToast('Successfully deleted account.');
       navigate('/');
     } catch (error) {
       console.error(error);
+      errorToast('Failed to delete account');
       setErrorMessage(error.message);
     }
   };
@@ -175,8 +165,7 @@ const Dashboard = () => {
               className={`text-[10px] font-semibold bg-slate-400 text-slate-700
               } p-[1px] rounded`}
             >
-              {/* {auth.roles.includes(2001) ? 'ADMIN' : 'USER'} */}
-              user
+              {auth.roles.map((role) => role)}
             </p>
           </div>
         </NavLink>
