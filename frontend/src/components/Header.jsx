@@ -1,18 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Logo from './Logo';
-import AuthContext from '../context/authContext';
+
 import placeholderImg from '../assets/placeholder-img.png';
-import ThemeContext from '../context/ThemeContext';
-import { Context } from '../context/context';
+
+import useAuth from '../hooks/useAuth';
+import useGlobal from '../hooks/useGlobal';
+import useTheme from '../hooks/useTheme';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const { auth } = useContext(AuthContext);
-  const { toggleTheme, theme } = useContext(ThemeContext);
-  const { linkClass } = useContext(Context);
+  const { auth } = useAuth();
+  const { toggleTheme, theme } = useTheme();
+  const { linkClass, handleLogout } = useGlobal();
 
   const toggleMobileMenu = () => {
     const toggleMobileMenuBtn = document.getElementById(
@@ -56,20 +58,19 @@ const Header = () => {
               Home
             </NavLink>
 
-            <NavLink className={linkClass} to="/posts">
-              Posts
-            </NavLink>
+            {auth?.accessToken && (
+              <NavLink className={linkClass} to="/dashboard">
+                Dashboard
+              </NavLink>
+            )}
 
             {auth?.accessToken ? (
-              <NavLink to="/dashboard" className={linkClass}>
-                <div className="w-8 h-8 rounded-full">
-                  <img
-                    src={placeholderImg}
-                    alt="placeholder image"
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="hover:opacity-85 duration-300"
+              >
+                Sign Out
+              </button>
             ) : (
               <NavLink className={linkClass} to="/sign-in">
                 Sign In

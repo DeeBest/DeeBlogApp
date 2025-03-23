@@ -2,9 +2,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { FaCheck, FaTimes, FaInfoCircle } from 'react-icons/fa';
 import customAxios from '../api/axios';
+import useGlobal from '../hooks/useGlobal';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
-const EMAIL_REGEX = /^((?=.*[a-zA-Z])(?=.*[@])(?=.*[.])).{4,50}$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
@@ -33,6 +34,7 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { successToast, errorToast } = useGlobal();
 
   useEffect(() => {
     usernameRef.current.focus();
@@ -81,6 +83,7 @@ const SignUp = () => {
         password,
       });
 
+      successToast('Successfully signed up');
       setUsername('');
       setEmail('');
       setPassword('');
@@ -88,6 +91,7 @@ const SignUp = () => {
       navigate('/');
     } catch (error) {
       console.error(error);
+      errorToast('Failed to sign up');
 
       if (error.status === 409) {
         setErrorMessage('That email is already registered.');

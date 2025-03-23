@@ -3,7 +3,7 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 
 const Unauthorized = () => {
   const navigate = useNavigate();
-  const goBack = () => navigate(-1);
+  const goBack = () => navigate('/dashboard');
   return (
     <div className="flex flex-col gap-6 justify-center items-center w-full h-full flex-1">
       <FaExclamationTriangle className="text-5xl text-red-700" />

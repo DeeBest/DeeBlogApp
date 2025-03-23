@@ -1,7 +1,8 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import customAxios from '../api/axios';
-import AuthContext from '../context/authContext';
+import useAuth from '../hooks/useAuth';
+import useGlobal from '../hooks/useGlobal';
 
 const SignIn = () => {
   const emailRef = useRef();
@@ -18,7 +19,8 @@ const SignIn = () => {
   const location = useLocation();
   const from = location?.state?.from?.pathname || '/';
 
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+  const { successToast, errorToast } = useGlobal();
 
   useEffect(() => {
     emailRef.current.focus();
@@ -39,6 +41,7 @@ const SignIn = () => {
         password,
       });
 
+      successToast('Successfully signed in');
       const accessToken = await res?.data?.accessToken;
       const username = await res?.data?.username;
       const id = await res?.data?.id;
@@ -51,6 +54,7 @@ const SignIn = () => {
       navigate(from, { replace: true });
     } catch (error) {
       console.error(error);
+      errorToast('Failed to sign in');
 
       if (error.status === 403) {
         setErrorMessage("You're forbidden to make this request.");
