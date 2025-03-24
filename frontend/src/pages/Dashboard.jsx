@@ -126,8 +126,6 @@ const Dashboard = () => {
     }
   };
 
-  console.log(auth);
-
   return (
     <div className="flex-1 w-full h-full flex flex-col sm:flex-row sm:text-center gap-3 p-2 mx-auto relative">
       <div className="overlay z-9 absolute top-[-100%] left-0 h-full w-full bg-[#000000ca] flex justify-center items-center transition-all -translate-y-full duration-500 rounded-md">

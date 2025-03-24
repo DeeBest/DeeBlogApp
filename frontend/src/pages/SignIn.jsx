@@ -13,13 +13,12 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || '/';
 
-  const { setAuth } = useAuth();
+  const { setAuth, isLoading, setIsLoading } = useAuth();
   const { successToast, errorToast } = useGlobal();
 
   useEffect(() => {
@@ -50,7 +49,6 @@ const SignIn = () => {
 
       setEmail('');
       setPassword('');
-      // navigate('/dashboard');
       navigate(from, { replace: true });
     } catch (error) {
       console.error(error);

@@ -21,10 +21,16 @@ const handleRefreshToken = async (req, res) => {
           return res.status(403).json({ message: 'Unauthorized' });
 
         const accessToken = jwt.sign(
-          { username: decodedInfo.username },
+          {
+            username: decodedInfo.username,
+            id: decodedInfo._id,
+            email: decodedInfo.email,
+            roles: decodedInfo.roles,
+          },
           process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: '15m' }
         );
+
         res.status(200).json({ message: 'Success', accessToken });
       }
     );

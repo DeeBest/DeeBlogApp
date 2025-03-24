@@ -25,6 +25,8 @@ const login = async (req, res) => {
     const accessToken = await jwt.sign(
       {
         username: user.username,
+        email: user.email,
+        id: user._id,
         roles,
       },
       process.env.ACCESS_TOKEN_SECRET,
@@ -34,6 +36,9 @@ const login = async (req, res) => {
     const refreshToken = await jwt.sign(
       {
         username: user.username,
+        email: user.email,
+        id: user._id,
+        roles,
       },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: '1d' }
@@ -51,10 +56,16 @@ const login = async (req, res) => {
 
     const username = user.username;
     const id = user._id;
+    const userEmail = user.email;
 
-    res
-      .status(200)
-      .json({ message: 'Success', accessToken, username, id, roles });
+    res.status(200).json({
+      message: 'Success',
+      accessToken,
+      username,
+      id,
+      roles,
+      userEmail,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });
