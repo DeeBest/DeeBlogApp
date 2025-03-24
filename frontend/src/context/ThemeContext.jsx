@@ -22,7 +22,7 @@ export const ThemeProvider = ({ children }) => {
               ? 'bg-slate-100 text-slate-600'
               : 'bg-slate-900 text-slate-300'
           }
-         min-w-full min-h-screen`}
+         min-w-full min-h-screen flex flex-col`}
       >
         {children}
       </div>
