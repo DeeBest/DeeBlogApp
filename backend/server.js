@@ -7,7 +7,7 @@ const cors = require('cors');
 const credentials = require('./middleware/credentials');
 const corsOptions = require('./config/corsOptions');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const mongoose = require('mongoose');
 const connectDB = require('./config/databaseConfig');
@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 app.use('/api/users/auth', require('./routes/userAuthRoutes'));
 app.use('/api/users/auth/refresh', require('./routes/refreshTokenRoute'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/posts', require('./routes/postRoutes'));
 
 app.all('*', (req, res) => {
   return res.status(404).json({ message: 'route not found' });

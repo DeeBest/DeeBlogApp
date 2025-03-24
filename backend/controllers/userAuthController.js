@@ -22,12 +22,15 @@ const login = async (req, res) => {
 
     const roles = Object.values(user.roles);
 
+    const userInfo = {
+      username: user.username,
+      email: user.email,
+      id: user._id,
+      roles,
+    };
     const accessToken = await jwt.sign(
       {
-        username: user.username,
-        email: user.email,
-        id: user._id,
-        roles,
+        userInfo,
       },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '15m' }
@@ -35,10 +38,7 @@ const login = async (req, res) => {
 
     const refreshToken = await jwt.sign(
       {
-        username: user.username,
-        email: user.email,
-        id: user._id,
-        roles,
+        userInfo,
       },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: '1d' }
@@ -54,17 +54,10 @@ const login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    const username = user.username;
-    const id = user._id;
-    const userEmail = user.email;
-
     res.status(200).json({
       message: 'Success',
       accessToken,
-      username,
-      id,
-      roles,
-      userEmail,
+      userInfo,
     });
   } catch (error) {
     console.error(error);

@@ -17,15 +17,13 @@ const handleRefreshToken = async (req, res) => {
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET,
       (err, decodedInfo) => {
-        if (err || foundUser.username !== decodedInfo.username)
+        if (err || foundUser.username !== decodedInfo.userInfo.username)
           return res.status(403).json({ message: 'Unauthorized' });
 
+        const userInfo = decodedInfo.userInfo;
         const accessToken = jwt.sign(
           {
-            username: decodedInfo.username,
-            id: decodedInfo.id,
-            email: decodedInfo.email,
-            roles: decodedInfo.roles,
+            userInfo,
           },
           process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: '15m' }
