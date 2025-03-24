@@ -19,6 +19,7 @@ import RequireAuth from './utils/RequireAuth';
 import Posts from './pages/Posts';
 import CreatePost from './pages/CreatePost';
 import Unauthorized from './pages/Unauthorized';
+import Profile from './components/Profile';
 
 const App = () => {
   return (
@@ -30,12 +31,14 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="sign-in" element={<SignIn />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
 
           {/* Protected Routes - Wrapped Individually */}
           <Route element={<RequireAuth allowedRoles={[2022]} />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/posts" element={<Posts />} />
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route path="/dashboard/posts" element={<Posts />} />
+              <Route path="/dashboard/profile" element={<Profile />} />
+            </Route>
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[2001]} />}>
