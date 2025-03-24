@@ -39,4 +39,17 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { createPost };
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    if (posts.length < 0 || !posts)
+      return res.status(404).json({ message: 'There are no posts' });
+
+    res.status(200).json({ message: 'Success', posts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createPost, getAllPosts };
