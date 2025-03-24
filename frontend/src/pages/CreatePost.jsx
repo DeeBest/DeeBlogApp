@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import useGlobal from '../hooks/useGlobal';
+import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -11,6 +12,7 @@ const CreatePost = () => {
 
   const { isLoading, setIsLoading } = useAuth();
   const { successToast, errorToast } = useGlobal();
+  const customAxios = useAxiosInterceptor();
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,12 @@ const CreatePost = () => {
     };
 
     try {
-      console.log(post);
+      const res = await customAxios.post(
+        '/posts/create-post',
+        JSON.stringify(post)
+      );
+      console.log(res.data);
+
       successToast('Post successfully created');
     } catch (error) {
       console.error(error);

@@ -18,11 +18,17 @@ const createPost = async (req, res) => {
   }
 
   const creatorID = user.id;
+  const slug = postTitle
+    .split(' ')
+    .join('-')
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9-]/g, '-');
   const newPost = {
     creatorID,
     postTitle,
     postCategory,
     postBody,
+    slug,
   };
 
   try {
