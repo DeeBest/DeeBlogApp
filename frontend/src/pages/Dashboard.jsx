@@ -22,6 +22,7 @@ const PASSWORD_REGEX =
 
 const Dashboard = () => {
   const { auth, setAuth, isLoading, setIsLoading } = useAuth();
+
   const { theme } = useTheme();
   const { linkClass, handleLogout } = useGlobal();
 

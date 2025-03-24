@@ -45,6 +45,7 @@ const SignIn = () => {
       const username = await res?.data?.username;
       const id = await res?.data?.id;
       const roles = await res?.data?.roles;
+
       setAuth({ email, password, username, accessToken, id, roles });
 
       setEmail('');

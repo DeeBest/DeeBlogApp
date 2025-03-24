@@ -24,7 +24,8 @@ export const AuthProvider = ({ children }) => {
           accessToken: newToken,
           username: decoded.username,
           roles: decoded.roles,
-          userId: decoded.userId,
+          id: decoded.id,
+          email: decoded.email,
         });
       } catch (error) {
         setAuth(null);
