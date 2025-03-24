@@ -42,11 +42,9 @@ const SignIn = () => {
 
       successToast('Successfully signed in');
       const accessToken = await res?.data?.accessToken;
-      const username = await res?.data?.username;
-      const id = await res?.data?.id;
-      const roles = await res?.data?.roles;
+      const currentUser = await res?.data?.userInfo;
 
-      setAuth({ email, password, username, accessToken, id, roles });
+      setAuth({ accessToken, currentUser });
 
       setEmail('');
       setPassword('');

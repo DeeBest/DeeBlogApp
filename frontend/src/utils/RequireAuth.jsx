@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const RequireAuth = ({ allowedRoles }) => {
   const { auth, isLoading } = useAuth();
+
   const location = useLocation();
 
   if (isLoading) {
@@ -17,7 +18,8 @@ const RequireAuth = ({ allowedRoles }) => {
 
   // Get fresh data from token
   const decoded = jwtDecode(auth.accessToken);
-  const userRoles = decoded?.roles || [];
+
+  const userRoles = decoded?.userInfo?.roles || [];
 
   if (!allowedRoles.some((role) => userRoles.includes(role))) {
     return <Navigate to="/unauthorized" replace />;

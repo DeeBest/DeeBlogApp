@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { FaExclamationTriangle } from 'react-icons/fa';
+import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 
 const FeaturedUsers = () => {
   const [users, setUsers] = useState([]);
+  const customAxios = useAxiosInterceptor();
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/users');
+      const res = await customAxios.get('/users');
       setUsers(res.data.users);
     } catch (err) {
       console.error(err);

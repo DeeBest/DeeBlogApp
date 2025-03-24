@@ -13,19 +13,18 @@ export const AuthProvider = ({ children }) => {
       setIsLoading(true);
       try {
         const newToken = await refreshToken();
+
         const decoded = jwtDecode(newToken);
+        const currentUser = decoded.userInfo;
 
         // Verify token contains required data
-        if (!decoded?.username) {
+        if (!decoded?.userInfo?.username) {
           throw new Error('Invalid token payload');
         }
 
         setAuth({
           accessToken: newToken,
-          username: decoded.username,
-          roles: decoded.roles,
-          id: decoded.id,
-          email: decoded.email,
+          currentUser,
         });
       } catch (error) {
         setAuth(null);

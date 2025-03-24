@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_URL = 'http://localhost:3000/api';
+const BACKEND_URL = 'http://localhost:5000/api';
 
 const customAxios = axios.create({
   baseURL: BACKEND_URL,

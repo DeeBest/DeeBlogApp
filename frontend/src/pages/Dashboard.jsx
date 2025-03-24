@@ -26,15 +26,15 @@ const Dashboard = () => {
   const { theme } = useTheme();
   const { linkClass, handleLogout } = useGlobal();
 
-  const [username, setUsername] = useState(auth?.username);
+  const [username, setUsername] = useState(auth?.currentUser?.username);
   const [validUsername, setValidUsername] = useState(false);
   const [usernameFocus, setUsernameFocus] = useState(false);
 
-  const [email, setEmail] = useState(auth?.email);
+  const [email, setEmail] = useState(auth?.currentUser?.email);
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  const [password, setPassword] = useState(auth?.password);
+  const [password, setPassword] = useState(auth?.currentUser?.password);
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
 
@@ -94,7 +94,7 @@ const Dashboard = () => {
     }
 
     try {
-      await customAxios.put(`/users/update-user/${auth.id}`, {
+      await customAxios.put(`/users/update-user/${auth.currentUser.id}`, {
         username,
         email,
         password,
@@ -114,7 +114,7 @@ const Dashboard = () => {
     setErrorMessage('');
 
     try {
-      await customAxios.delete(`/users/delete-user/${auth.id}`);
+      await customAxios.delete(`/users/delete-user/${auth.currentUser.id}`);
       setAuth({});
       successToast('Successfully deleted account.');
       navigate('/');
@@ -166,7 +166,7 @@ const Dashboard = () => {
               } p-[1px] rounded`}
             >
               {/* {auth.roles.map((role) => role)} */}
-              {auth.username}
+              {auth.currentUser.username}
             </p>
           </div>
         </NavLink>
@@ -183,7 +183,9 @@ const Dashboard = () => {
           theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
         } sm:w-3/4 w-full flex-1 flex flex-col justify-center items-center gap-2 p-2 rounded shadow-sm`}
       >
-        <h3 className="text-xl sm:text-2xl font-semibold">{auth?.username}</h3>
+        <h3 className="text-xl sm:text-2xl font-semibold">
+          {auth?.currentUser?.username}
+        </h3>
         <div className="w-24 h-24 rounded-full border-[7px] shadow-black shadow-sm dark:shadow-white">
           <img
             src={placeholderImg}
@@ -417,7 +419,7 @@ const Dashboard = () => {
             )}
           </button>
         </form>
-        {auth?.roles?.includes(2001) && (
+        {auth?.currentUser?.roles?.includes(2001) && (
           <Link to="/create-post" className="">
             <button className="border-2 border-rose-400 p-2 rounded-md hover:opacity-85 duration-300">
               Create Post
