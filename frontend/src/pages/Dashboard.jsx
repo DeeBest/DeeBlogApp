@@ -77,12 +77,14 @@ const Dashboard = () => {
             </div>
           </div>
         </NavLink>
-        <NavLink to="/dashboard/posts" className={linkClass}>
-          <div className="flex items-center p-1 gap-2 font-semibold">
-            <HiDocumentText className="text-xl" />
-            <p>Posts</p>
-          </div>
-        </NavLink>
+        {auth.currentUser.roles.includes(2001) && (
+          <NavLink to="/dashboard/posts" className={linkClass}>
+            <div className="flex items-center p-1 gap-2 font-semibold">
+              <HiDocumentText className="text-xl" />
+              <p>Posts</p>
+            </div>
+          </NavLink>
+        )}
         <button
           className="sm:w-full w-1/3 max-w-32 p-1 rounded font-semibold shadow-sm hover:opacity-80 duration-300 self-center flex gap-2 items-center"
           onClick={handleLogout}

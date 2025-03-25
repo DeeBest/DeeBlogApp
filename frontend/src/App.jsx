@@ -36,13 +36,13 @@ const App = () => {
           {/* Protected Routes - Wrapped Individually */}
           <Route element={<RequireAuth allowedRoles={[2022]} />}>
             <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="/dashboard/posts" element={<Posts />} />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[2001]} />}>
             <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/dashboard/posts" element={<Posts />} />
           </Route>
 
           {/* Catch-All Route */}

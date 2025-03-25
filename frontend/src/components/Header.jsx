@@ -59,7 +59,7 @@ const Header = () => {
             </NavLink>
 
             {auth?.accessToken && (
-              <NavLink className={linkClass} to="/dashboard">
+              <NavLink className={linkClass} to="/dashboard/profile">
                 Dashboard
               </NavLink>
             )}

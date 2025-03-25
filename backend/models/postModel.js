@@ -19,6 +19,10 @@ const postSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add post Body'],
     },
+    slug: {
+      type: String,
+      required: [true, 'Please add post Slug'],
+    },
   },
   {
     timestamps: true,
