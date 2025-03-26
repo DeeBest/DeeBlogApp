@@ -104,9 +104,11 @@ const deletePost = async (req, res) => {
       return res.status(404).json({ message: `No post with ${id} was found.` });
     }
 
-    if (postCreatorID !== foundPost.postCreatorID) {
-      return res.status(403).json({ message: 'Forbidden' });
-    }
+    // if (postCreatorID !== foundPost.postCreatorID) {
+    //   return res.status(403).json({ message: 'Forbidden' });
+    // }
+
+    await Post.deleteOne(foundPost);
 
     return res.status(204).json({
       message: `You have successfully deleted ${foundPost.postTitle}`,

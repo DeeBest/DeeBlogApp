@@ -20,6 +20,7 @@ import Posts from './pages/Posts';
 import CreatePost from './pages/CreatePost';
 import Unauthorized from './pages/Unauthorized';
 import Profile from './components/Profile';
+import PostDelete from './pages/PostDelete';
 
 const App = () => {
   return (
@@ -38,6 +39,10 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="/dashboard/profile" element={<Profile />} />
               <Route path="/dashboard/posts" element={<Posts />} />
+              <Route
+                path="/dashboard/posts/delete-post/:id"
+                element={<PostDelete />}
+              />
             </Route>
           </Route>
 

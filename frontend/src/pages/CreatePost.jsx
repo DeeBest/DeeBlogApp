@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import useGlobal from '../hooks/useGlobal';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
@@ -13,6 +14,7 @@ const CreatePost = () => {
   const { isLoading, setIsLoading } = useAuth();
   const { successToast, errorToast } = useGlobal();
   const customAxios = useAxiosInterceptor();
+  const navigate = useNavigate();
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +27,10 @@ const CreatePost = () => {
     };
 
     try {
-      const res = await customAxios.post(
-        '/posts/create-post',
-        JSON.stringify(post)
-      );
-      console.log(res.data);
+      await customAxios.post('/posts/create-post', JSON.stringify(post));
 
       successToast('Post successfully created');
+      navigate('/dashboard/posts');
     } catch (error) {
       console.error(error);
       errorToast('Failed to create post');

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import { FaExclamationTriangle, FaPen, FaTrash } from 'react-icons/fa';
 import useTheme from '../hooks/useTheme';
+import { Link } from 'react-router-dom';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -77,7 +78,9 @@ const Posts = () => {
                     <td>
                       <div>
                         <FaPen className="edit-icon table-icon" />
-                        <FaTrash className="delete-icon table-icon" />
+                        <Link to={`/dashboard/posts/delete-post/${post._id}`}>
+                          <FaTrash className="delete-icon table-icon" />
+                        </Link>
                       </div>
                     </td>
                   </tr>
