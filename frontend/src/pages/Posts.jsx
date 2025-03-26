@@ -5,6 +5,8 @@ import useTheme from '../hooks/useTheme';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const [showMore, setShowMore] = useState(true);
+
   const customAxios = useAxiosInterceptor();
   const { theme } = useTheme();
 
@@ -12,6 +14,10 @@ const Posts = () => {
     try {
       const res = await customAxios.get('/posts');
       setPosts(res.data.posts);
+
+      if (res.data.posts.length < 9) {
+        setShowMore(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -20,6 +26,21 @@ const Posts = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  const handleShowMore = async () => {
+    const startIndex = posts.length;
+
+    try {
+      const res = await customAxios.get(`/posts?startIndex=${startIndex}`);
+      setPosts((prevPosts) => [...prevPosts, ...res.data.posts]);
+
+      if (res.data.posts.length < 9) {
+        setShowMore(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div
@@ -36,33 +57,43 @@ const Posts = () => {
           </h3>
         </div>
       ) : (
-        <table>
-          <thead>
-            <tr className="dark:bg-slate-400 dark:text-slate-700 bg-slate-700 text-slate-400">
-              <td>Date Updated</td>
-              <td>Title</td>
-              <td>Category</td>
-              <td>Actions</td>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((post) => {
-              return (
-                <tr key={post._id}>
-                  <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
-                  <td>{post.slug}</td>
-                  <td>{post.postCategory}</td>
-                  <td>
-                    <div>
-                      <FaPen className="edit-icon table-icon" />
-                      <FaTrash className="delete-icon table-icon" />
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <>
+          <table>
+            <thead>
+              <tr className="dark:bg-slate-400 dark:text-slate-700 bg-slate-700 text-slate-400">
+                <td>Date Updated</td>
+                <td>Title</td>
+                <td>Category</td>
+                <td>Actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              {posts.map((post) => {
+                return (
+                  <tr key={post._id}>
+                    <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
+                    <td>{post.slug}</td>
+                    <td>{post.postCategory}</td>
+                    <td>
+                      <div>
+                        <FaPen className="edit-icon table-icon" />
+                        <FaTrash className="delete-icon table-icon" />
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {showMore && (
+            <button
+              onClick={handleShowMore}
+              className="border-2 border-rose-500 p-1 rounded-md hover:opacity-75 duration-300"
+            >
+              Show More
+            </button>
+          )}
+        </>
       )}
     </div>
   );
