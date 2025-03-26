@@ -89,4 +89,32 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts };
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const postCreatorID = req.user.id;
+
+  if (!id) {
+    return res.status(400).json({ message: 'Post ID is required' });
+  }
+
+  try {
+    const foundPost = await Post.findOne({ _id: id }).exec();
+
+    if (!foundPost) {
+      return res.status(404).json({ message: `No post with ${id} was found.` });
+    }
+
+    if (postCreatorID !== foundPost.postCreatorID) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    return res.status(204).json({
+      message: `You have successfully deleted ${foundPost.postTitle}`,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createPost, getAllPosts, deletePost };
