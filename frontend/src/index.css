@@ -6,3 +6,40 @@
   font-size: 1.05rem;
   min-height: 100px;
 }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  font-size: smaller;
+  color: white;
+}
+td div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+td div .edit-icon {
+  color: cadetblue;
+}
+td div .delete-icon {
+  color: tomato;
+}
+.table-icon {
+  cursor: pointer;
+  transition: transform 350ms ease-in-out;
+}
+.table-icon:hover {
+  transform: scale(0.9);
+}
+th {
+  background-color: hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 10%);
+}
+tr:nth-child(even) {
+  background-color: hsl(0, 0%, 10%);
+}

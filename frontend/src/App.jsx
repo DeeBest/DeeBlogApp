@@ -37,12 +37,12 @@ const App = () => {
           <Route element={<RequireAuth allowedRoles={[2022]} />}>
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="/dashboard/profile" element={<Profile />} />
+              <Route path="/dashboard/posts" element={<Posts />} />
             </Route>
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[2001]} />}>
             <Route path="/create-post" element={<CreatePost />} />
-            <Route path="/dashboard/posts" element={<Posts />} />
           </Route>
 
           {/* Catch-All Route */}
