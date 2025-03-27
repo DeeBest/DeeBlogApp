@@ -71,7 +71,7 @@ const CreatePost = () => {
               <option value="mongoDB">MongoDB</option>
               <option value="expressJS">ExpressJS</option>
               <option value="reactJS">ReactJS</option>
-              <option value="nodeJS">nodeJS</option>
+              <option value="nodeJS">NodeJS</option>
             </select>
           </label>
         </div>

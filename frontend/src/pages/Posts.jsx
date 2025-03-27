@@ -3,6 +3,7 @@ import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import { FaExclamationTriangle, FaPen, FaTrash } from 'react-icons/fa';
 import useTheme from '../hooks/useTheme';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -10,6 +11,7 @@ const Posts = () => {
 
   const customAxios = useAxiosInterceptor();
   const { theme } = useTheme();
+  const { auth } = useAuth();
 
   const fetchPosts = async () => {
     try {
@@ -49,7 +51,16 @@ const Posts = () => {
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
       } sm:w-3/4 w-full flex-1 flex flex-col items-center gap-2 p-2 rounded shadow-sm table-auto overflow-x-scroll`}
     >
-      <h1 className="text-4xl font-bold">Posts</h1>
+      <div className="w-full flex justify-between items-center gap-2">
+        <h1 className="text-4xl font-bold">Posts</h1>
+        {auth?.currentUser?.roles?.includes(2001) && (
+          <Link to="/create-post">
+            <button className="border-2 border-rose-400 p-2 rounded-md hover:opacity-85 duration-300">
+              Create Post
+            </button>
+          </Link>
+        )}
+      </div>
       {posts.length <= 0 || !posts ? (
         <div className="w-full flex flex-col justify-center items-center gap-5">
           <FaExclamationTriangle className="text-red-500 text-3xl" />

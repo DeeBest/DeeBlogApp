@@ -334,13 +334,7 @@ const Profile = () => {
           )}
         </button>
       </form>
-      {auth?.currentUser?.roles?.includes(2001) && (
-        <Link to="/create-post" className="">
-          <button className="border-2 border-rose-400 p-2 rounded-md hover:opacity-85 duration-300">
-            Create Post
-          </button>
-        </Link>
-      )}
+
       <div className="flex-1 min-w-[300px] max-w-[450px] flex justify-between items-center mt-3 text-red-600 font-medium">
         <button
           className={`hover:opacity-70 duration-300`}
