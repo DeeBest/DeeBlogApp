@@ -104,9 +104,9 @@ const deletePost = async (req, res) => {
       return res.status(404).json({ message: `No post with ${id} was found.` });
     }
 
-    // if (postCreatorID !== foundPost.postCreatorID) {
-    //   return res.status(403).json({ message: 'Forbidden' });
-    // }
+    if (postCreatorID != foundPost.postCreatorID) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
 
     await Post.deleteOne(foundPost);
 
@@ -119,4 +119,51 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts, deletePost };
+const updatePost = async (req, res) => {
+  const id = req.params.id;
+  const postCreatorID = req.user.id;
+
+  if (!id) {
+    return res.status(400).json({ message: 'Post ID is required' });
+  }
+
+  if (!postCreatorID) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  try {
+    const foundPost = await Post.findOne({ _id: id }).exec();
+
+    if (!foundPost) {
+      return res
+        .status(404)
+        .json({ message: `No post with the ${id} ID was found.` });
+    }
+
+    if (postCreatorID != foundPost.postCreatorID) {
+      return res.status(403).json({
+        message: `Forbidden`,
+      });
+    }
+
+    if (req.body?.postTitle) {
+      foundPost.postTitle = req.body.postTitle;
+    }
+
+    if (req.body?.postBody) {
+      foundPost.postBody = req.body.postBody;
+    }
+
+    if (req.body?.postCategory) {
+      foundPost.postCategory = req.body.postCategory;
+    }
+
+    await foundPost.save();
+    res.status(200).json({ message: 'Post successfully updated', foundPost });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createPost, getAllPosts, deletePost, updatePost };
