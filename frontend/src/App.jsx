@@ -21,6 +21,7 @@ import CreatePost from './pages/CreatePost';
 import Unauthorized from './pages/Unauthorized';
 import Profile from './components/Profile';
 import PostDelete from './pages/PostDelete';
+import EditPost from './pages/EditPost';
 
 const App = () => {
   return (
@@ -42,6 +43,10 @@ const App = () => {
               <Route
                 path="/dashboard/posts/delete-post/:id"
                 element={<PostDelete />}
+              />
+              <Route
+                path="/dashboard/posts/edit-post/:id"
+                element={<EditPost />}
               />
             </Route>
           </Route>

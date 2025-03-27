@@ -51,19 +51,19 @@ const Posts = () => {
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
       } sm:w-3/4 w-full flex-1 flex flex-col items-center gap-2 p-2 rounded shadow-sm table-auto overflow-x-scroll`}
     >
-      <div className="w-full flex justify-between items-center gap-2">
+      <div className="flex items-center justify-between w-full gap-2">
         <h1 className="text-4xl font-bold">Posts</h1>
         {auth?.currentUser?.roles?.includes(2001) && (
           <Link to="/create-post">
-            <button className="border-2 border-rose-400 p-2 rounded-md hover:opacity-85 duration-300">
+            <button className="p-2 duration-300 border-2 rounded-md border-rose-400 hover:opacity-85">
               Create Post
             </button>
           </Link>
         )}
       </div>
       {posts.length <= 0 || !posts ? (
-        <div className="w-full flex flex-col justify-center items-center gap-5">
-          <FaExclamationTriangle className="text-red-500 text-3xl" />
+        <div className="flex flex-col items-center justify-center w-full gap-5">
+          <FaExclamationTriangle className="text-3xl text-red-500" />
           <h3 className="text-lg font-semibold">
             No posts available for display
           </h3>
@@ -88,7 +88,9 @@ const Posts = () => {
                     <td>{post.postCategory}</td>
                     <td>
                       <div>
-                        <FaPen className="edit-icon table-icon" />
+                        <Link to="/dashboard/posts/edit-post/:id">
+                          <FaPen className="edit-icon table-icon" />
+                        </Link>
                         <Link to={`/dashboard/posts/delete-post/${post._id}`}>
                           <FaTrash className="delete-icon table-icon" />
                         </Link>
@@ -102,7 +104,7 @@ const Posts = () => {
           {showMore && (
             <button
               onClick={handleShowMore}
-              className="border-2 border-rose-500 p-1 rounded-md hover:opacity-75 duration-300"
+              className="p-1 duration-300 border-2 rounded-md border-rose-500 hover:opacity-75"
             >
               Show More
             </button>

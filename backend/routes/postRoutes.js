@@ -7,6 +7,7 @@ const {
   getAllPosts,
   deletePost,
   updatePost,
+  getSinglePost,
 } = require('../controllers/postController');
 
 router.get('/', getAllPosts);
@@ -15,5 +16,6 @@ router.use(verifyRoles(rolesList.admin));
 router.post('/create-post', createPost);
 router.delete('/delete-post/:id', deletePost);
 router.put('/update-post/:id', updatePost);
+router.get('/:id', getSinglePost);
 
 module.exports = router;
