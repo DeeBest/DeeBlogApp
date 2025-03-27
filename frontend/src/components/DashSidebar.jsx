@@ -1,7 +1,7 @@
 import useTheme from '../hooks/useTheme';
 import useGlobal from '../hooks/useGlobal';
 import useAuth from '../hooks/useAuth';
-import { FaUser, FaArrowRight } from 'react-icons/fa';
+import { FaUser, FaArrowRight, FaUsers } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
 import { NavLink } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ const DashSidebar = () => {
       <NavLink to="/dashboard/profile" className={linkClass}>
         <div className="flex items-center gap-2 p-1 font-semibold">
           <FaUser className="text-xl" />
-          <div className="flex-1 flex gap-1 items-center justify-between">
+          <div className="flex items-center justify-between flex-1 gap-1">
             <h3 className="font-semibold text-slate-500">Profile</h3>
             <p
               className={`text-[10px] font-semibold bg-slate-400 text-slate-700
@@ -30,16 +30,24 @@ const DashSidebar = () => {
           </div>
         </div>
       </NavLink>
+      <NavLink to="/dashboard/posts" className={linkClass}>
+        <div className="flex items-center gap-2 p-1 font-semibold">
+          <HiDocumentText className="text-xl" />
+          <p>Posts</p>
+        </div>
+      </NavLink>
       {auth.currentUser.roles.includes(2001) && (
-        <NavLink to="/dashboard/posts" className={linkClass}>
-          <div className="flex items-center p-1 gap-2 font-semibold">
-            <HiDocumentText className="text-xl" />
-            <p>Posts</p>
-          </div>
-        </NavLink>
+        <>
+          <NavLink to="/dashboard/users" className={linkClass}>
+            <div className="flex items-center gap-2 p-1 font-semibold">
+              <FaUsers className="text-xl" />
+              <p>Users</p>
+            </div>
+          </NavLink>
+        </>
       )}
       <button
-        className="sm:w-full w-1/3 max-w-32 p-1 rounded font-semibold shadow-sm hover:opacity-80 duration-300 self-center flex gap-2 items-center"
+        className="flex items-center self-center w-1/3 gap-2 p-1 font-semibold duration-300 rounded shadow-sm sm:w-full max-w-32 hover:opacity-80"
         onClick={handleLogout}
       >
         <FaArrowRight />

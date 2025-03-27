@@ -22,6 +22,8 @@ import Unauthorized from './pages/Unauthorized';
 import Profile from './components/Profile';
 import PostDelete from './pages/PostDelete';
 import EditPost from './pages/EditPost';
+import Users from './components/Users';
+import UserDelete from './pages/UserDelete';
 
 const App = () => {
   return (
@@ -40,19 +42,26 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="/dashboard/profile" element={<Profile />} />
               <Route path="/dashboard/posts" element={<Posts />} />
-              <Route
-                path="/dashboard/posts/delete-post/:id"
-                element={<PostDelete />}
-              />
-              <Route
-                path="/dashboard/posts/edit-post/:id"
-                element={<EditPost />}
-              />
+              <Route element={<RequireAuth allowedRoles={[2001]} />}>
+                <Route
+                  path="/dashboard/posts/create-post"
+                  element={<CreatePost />}
+                />
+                <Route
+                  path="/dashboard/posts/delete-post/:id"
+                  element={<PostDelete />}
+                />
+                <Route
+                  path="/dashboard/posts/edit-post/:id"
+                  element={<EditPost />}
+                />
+                <Route path="/dashboard/users" element={<Users />} />
+                <Route
+                  path="/dashboard/users/delete-user/:id"
+                  element={<UserDelete />}
+                />
+              </Route>
             </Route>
-          </Route>
-
-          <Route element={<RequireAuth allowedRoles={[2001]} />}>
-            <Route path="/create-post" element={<CreatePost />} />
           </Route>
 
           {/* Catch-All Route */}

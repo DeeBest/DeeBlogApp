@@ -63,7 +63,10 @@ const EditPost = () => {
       <h1 className="text-3xl font-semibold">Update Post</h1>
       <form className="flex-1 max-w-[450px] flex flex-col gap-3 p-2">
         <div className="flex flex-col items-center justify-between w-full gap-2 sm:flex-row">
-          <label className="flex flex-col flex-1 gap-1" htmlFor="postTitle">
+          <label
+            className="flex flex-col items-start flex-1 gap-1"
+            htmlFor="postTitle"
+          >
             Title:
             <input
               type="text"
@@ -76,7 +79,10 @@ const EditPost = () => {
               className="flex-1 outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
             />
           </label>
-          <label className="flex flex-col gap-1" htmlFor="postCategory">
+          <label
+            className="flex flex-col items-start gap-1"
+            htmlFor="postCategory"
+          >
             Category:
             <select
               id="postCategory"
@@ -93,7 +99,10 @@ const EditPost = () => {
           </label>
         </div>
         <div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
-          <label className="flex flex-col flex-1 gap-1" htmlFor="postImage">
+          <label
+            className="flex flex-col items-start flex-1 gap-1"
+            htmlFor="postImage"
+          >
             Image:
             <input type="file" accept="image/*" className="flex-1" />
           </label>
@@ -105,7 +114,10 @@ const EditPost = () => {
             )}
           </button>
         </div>
-        <label htmlFor="postBody" className="flex flex-col flex-1 gap-1">
+        <label
+          htmlFor="postBody"
+          className="flex flex-col items-start flex-1 gap-1"
+        >
           Post Body:
           <ReactQuill
             theme="snow"

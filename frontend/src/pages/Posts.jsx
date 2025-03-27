@@ -54,7 +54,7 @@ const Posts = () => {
       <div className="flex items-center justify-between w-full gap-2">
         <h1 className="text-4xl font-bold">Posts</h1>
         {auth?.currentUser?.roles?.includes(2001) && (
-          <Link to="/create-post">
+          <Link to="/dashboard/posts/create-post">
             <button className="p-2 duration-300 border-2 rounded-md border-rose-400 hover:opacity-85">
               Create Post
             </button>
@@ -76,7 +76,7 @@ const Posts = () => {
                 <td>Date Updated</td>
                 <td>Title</td>
                 <td>Category</td>
-                <td>Actions</td>
+                {auth.currentUser.roles.includes(2001) && <td>Actions</td>}
               </tr>
             </thead>
             <tbody>
@@ -86,16 +86,18 @@ const Posts = () => {
                     <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
                     <td>{post.slug}</td>
                     <td>{post.postCategory}</td>
-                    <td>
-                      <div>
-                        <Link to={`/dashboard/posts/edit-post/${post._id}`}>
-                          <FaPen className="edit-icon table-icon" />
-                        </Link>
-                        <Link to={`/dashboard/posts/delete-post/${post._id}`}>
-                          <FaTrash className="delete-icon table-icon" />
-                        </Link>
-                      </div>
-                    </td>
+                    {auth.currentUser.roles.includes(2001) && (
+                      <td>
+                        <div>
+                          <Link to={`/dashboard/posts/edit-post/${post._id}`}>
+                            <FaPen className="edit-icon table-icon" />
+                          </Link>
+                          <Link to={`/dashboard/posts/delete-post/${post._id}`}>
+                            <FaTrash className="delete-icon table-icon" />
+                          </Link>
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 );
               })}

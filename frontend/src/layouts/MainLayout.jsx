@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 const MainLayout = () => {
   return (
-    <main className="flex-1 flex w-full min-h-full max-w-4xl mx-auto">
+    <main className="flex flex-1 w-full max-w-4xl min-h-full mx-auto overflow-hidden">
       <Outlet />
     </main>
   );
