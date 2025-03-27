@@ -88,7 +88,7 @@ const Posts = () => {
                     <td>{post.postCategory}</td>
                     <td>
                       <div>
-                        <Link to="/dashboard/posts/edit-post/:id">
+                        <Link to={`/dashboard/posts/edit-post/${post._id}`}>
                           <FaPen className="edit-icon table-icon" />
                         </Link>
                         <Link to={`/dashboard/posts/delete-post/${post._id}`}>
