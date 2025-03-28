@@ -4,6 +4,7 @@ import useGlobal from '../hooks/useGlobal';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import placeHolderImg from '../assets/placeholder-img.png';
 import CallToAction from '../components/CallToAction';
+import CommentsSection from '../components/CommentsSection';
 
 const Post = () => {
   const [post, setPost] = useState(null);
@@ -53,6 +54,7 @@ const Post = () => {
         className="w-full postBody"
       ></div>
       <CallToAction />
+      <CommentsSection />
     </div>
   );
 };
