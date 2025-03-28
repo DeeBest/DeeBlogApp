@@ -6,12 +6,14 @@ import ContextProvider from './context/context.jsx';
 import './index.css';
 import { AuthProvider } from './context/authContext.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 
 const root = document.querySelector('#root');
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <BrowserRouter>
+      <ScrollToTop />
       <AuthProvider>
         <ThemeProvider>
           <ContextProvider>
