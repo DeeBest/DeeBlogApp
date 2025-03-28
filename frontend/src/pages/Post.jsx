@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import useGlobal from '../hooks/useGlobal';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import placeHolderImg from '../assets/placeholder-img.png';
+import CallToAction from '../components/CallToAction';
 
 const Post = () => {
   const [post, setPost] = useState(null);
@@ -51,6 +52,7 @@ const Post = () => {
         dangerouslySetInnerHTML={{ __html: post && post.postBody }}
         className="w-full postBody"
       ></div>
+      <CallToAction />
     </div>
   );
 };

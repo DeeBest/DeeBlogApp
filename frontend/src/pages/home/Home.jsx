@@ -1,12 +1,10 @@
-import Featured from '../../components/Featured';
 import Hero from '../../components/Hero';
 import './home.css';
 
 const Home = () => {
   return (
-    <section className="flex-1 flex flex-col items-center justify-center p-2 gap-8">
+    <section className="flex flex-col items-center justify-center flex-1 gap-8 p-2">
       <Hero />
-      <Featured />
     </section>
   );
 };
