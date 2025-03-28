@@ -24,17 +24,19 @@ import PostDelete from './pages/PostDelete';
 import EditPost from './pages/EditPost';
 import Users from './components/Users';
 import UserDelete from './pages/UserDelete';
+import Post from './pages/Post';
 
 const App = () => {
   return (
     <>
       <Header />
       <Routes>
-        {/* Public Routes */}
         <Route path="/" element={<MainLayout />}>
+          {/* Public Routes */}
           <Route index element={<Home />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="sign-in" element={<SignIn />} />
+          <Route path="post/:slug" element={<Post />} />
           <Route path="unauthorized" element={<Unauthorized />} />
 
           {/* Protected Routes - Wrapped Individually */}

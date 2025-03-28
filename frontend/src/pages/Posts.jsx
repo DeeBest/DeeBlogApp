@@ -84,7 +84,14 @@ const Posts = () => {
                 return (
                   <tr key={post._id}>
                     <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
-                    <td>{post.slug}</td>
+                    <td>
+                      <Link
+                        to={`/post/${post.slug}`}
+                        className="underline duration-300 decoration-rose-400 hover:decoration-transparent"
+                      >
+                        {post.slug}
+                      </Link>
+                    </td>
                     <td>{post.postCategory}</td>
                     {auth.currentUser.roles.includes(2001) && (
                       <td>
