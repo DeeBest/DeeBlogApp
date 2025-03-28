@@ -2,14 +2,42 @@ const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 
 const getAllUsers = async (req, res) => {
+  const startIndex = parseInt(req.query.startIndex) || 0;
+  const limit = parseInt(req.query.limit) || 9;
+  const sortDirection = req.query.sort === 'asc' ? 1 : -1;
+
   try {
-    const users = await User.find();
+    const users = await User.find()
+      .sort({ createdAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
 
     if (!users) {
       return res.status(204).json({ message: 'No users found.' });
     }
 
-    res.status(200).json({ message: 'Success', users });
+    const usersWithoutPasswords = users.map((user) => {
+      const { password, ...rest } = user._doc;
+      return rest;
+    });
+
+    const totalUsers = await User.countDocuments();
+    const now = new Date();
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    const lastMonthUsers = await User.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+
+    res.status(200).json({
+      message: 'Success',
+      users: usersWithoutPasswords,
+      totalUsers,
+      lastMonthUsers,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: err.message });
