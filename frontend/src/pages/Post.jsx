@@ -54,7 +54,7 @@ const Post = () => {
         className="w-full postBody"
       ></div>
       <CallToAction />
-      <CommentsSection />
+      <CommentsSection postId={post && post._id} />
     </div>
   );
 };

@@ -4,16 +4,16 @@ import { useState } from 'react';
 import useGlobal from '../hooks/useGlobal';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 
-const CommentsSection = () => {
+const CommentsSection = ({ postId }) => {
   const { auth } = useAuth();
   const { successToast, errorToast } = useGlobal();
   const customAxios = useAxiosInterceptor();
-  const [comment, setComment] = useState('');
+  const [commentContent, setCommentContent] = useState('');
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     try {
-      console.log(comment);
+      console.log(commentContent);
       successToast('Comment successfully submitted');
     } catch (error) {
       console.error(error);
@@ -55,11 +55,11 @@ const CommentsSection = () => {
             rows={3}
             maxLength={200}
             required
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            value={commentContent}
+            onChange={(e) => setCommentContent(e.target.value)}
           ></textarea>
           <div className="flex items-center justify-between px-4 text-xs">
-            <p>{200 - comment.length} characters remaining</p>
+            <p>{200 - commentContent.length} characters remaining</p>
             <button
               className="p-1 text-base duration-300 border rounded-md border-rose-400 hover:opacity-80"
               onClick={handleSubmitComment}
