@@ -5,7 +5,7 @@ import useGlobal from '../hooks/useGlobal';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 
 const CommentsSection = ({ postId }) => {
-  const { auth } = useAuth();
+  const { auth, isLoading } = useAuth();
   const { successToast, errorToast } = useGlobal();
   const customAxios = useAxiosInterceptor();
   const [commentContent, setCommentContent] = useState('');
@@ -13,8 +13,13 @@ const CommentsSection = ({ postId }) => {
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     try {
-      console.log(commentContent);
+      await customAxios.post('/comments/create-comment', {
+        postId,
+        userId: auth.currentUser.id,
+        commentContent,
+      });
       successToast('Comment successfully submitted');
+      setCommentContent('');
     } catch (error) {
       console.error(error);
       errorToast('Failed to submit comment');
@@ -53,6 +58,7 @@ const CommentsSection = ({ postId }) => {
             className="p-2 text-black bg-white rounded-sm"
             placeholder="Add comment..."
             rows={3}
+            minLength={5}
             maxLength={200}
             required
             value={commentContent}
@@ -61,10 +67,31 @@ const CommentsSection = ({ postId }) => {
           <div className="flex items-center justify-between px-4 text-xs">
             <p>{200 - commentContent.length} characters remaining</p>
             <button
-              className="p-1 text-base duration-300 border rounded-md border-rose-400 hover:opacity-80"
+              disabled={
+                !commentContent ||
+                commentContent.length <= 0 ||
+                commentContent.length > 200 ||
+                commentContent.length < 5 ||
+                isLoading
+                  ? true
+                  : false
+              }
+              className={
+                !commentContent ||
+                commentContent.length <= 0 ||
+                commentContent.length > 200 ||
+                commentContent.length < 5 ||
+                isLoading
+                  ? `cursor-not-allowed opacity-55 p-1 text-base border rounded-md border-rose-400`
+                  : `p-1 text-base duration-300 border rounded-md border-rose-400 hover:opacity-80`
+              }
               onClick={handleSubmitComment}
             >
-              Submit
+              {isLoading ? (
+                <div className="w-4 h-4 bg-transparent border-2 rounded-full border-t-transparent border-slate-500 animate-spin"></div>
+              ) : (
+                'Submit'
+              )}
             </button>
           </div>
         </form>
