@@ -84,7 +84,9 @@ const getSingleUser = async (req, res) => {
       return res.status(404).json({ message: `No user with ${id} ID.` });
     }
 
-    res.status(200).json({ message: 'Success', user });
+    const { password, refreshToken, ...rest } = user._doc;
+
+    res.status(200).json({ message: 'Success', user: rest });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: err.message });

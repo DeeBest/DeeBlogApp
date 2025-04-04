@@ -1,23 +1,40 @@
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useGlobal from '../hooks/useGlobal';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
+import Comment from './Comment';
 
 const CommentsSection = ({ postId }) => {
   const { auth, isLoading } = useAuth();
   const { successToast, errorToast } = useGlobal();
   const customAxios = useAxiosInterceptor();
   const [commentContent, setCommentContent] = useState('');
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await customAxios.get(`/comments/get-comments/${postId}`);
+        setComments(res.data.comments);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchComments();
+  }, [postId]);
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     try {
-      await customAxios.post('/comments/create-comment', {
+      const res = await customAxios.post('/comments/create-comment', {
         postId,
         userId: auth.currentUser.id,
         commentContent,
       });
+
+      setComments([res.data.comment, ...comments]);
       successToast('Comment successfully submitted');
       setCommentContent('');
     } catch (error) {
@@ -96,6 +113,20 @@ const CommentsSection = ({ postId }) => {
           </div>
         </form>
       </div>
+      {comments.length < 0 ? (
+        <div>
+          <p>This post does not have comments yet.</p>
+        </div>
+      ) : (
+        <div>
+          <p>
+            Comments: <span>{comments.length}</span>
+          </p>
+          {comments.map((comment) => (
+            <Comment key={comment._id} comment={comment} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
