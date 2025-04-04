@@ -53,4 +53,41 @@ const getComments = async (req, res) => {
   }
 };
 
-module.exports = { createComment, getComments };
+const likeComment = async (req, res) => {
+  const commentId = req.params.commentId;
+  const userId = req.user.id;
+
+  if (!commentId || !userId) {
+    return res.status(400).json({ message: 'Comment ID and User ID required' });
+  }
+
+  try {
+    const foundComment = await Comment.findById(commentId);
+
+    if (!foundComment) {
+      return res
+        .status(404)
+        .json({ message: `No comment with ${commentId} ID` });
+    }
+
+    const userIdIndex = foundComment.likes.indexOf(userId);
+
+    if (userIdIndex === -1) {
+      foundComment.likes.push(userId);
+      foundComment.numberOfLikes += 1;
+    } else {
+      foundComment.likes.splice(userIdIndex, 1);
+      foundComment.numberOfLikes -= 1;
+    }
+
+    await foundComment.save();
+    res
+      .status(200)
+      .json({ message: 'Successfully liked the comment', foundComment });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createComment, getComments, likeComment };
