@@ -123,7 +123,12 @@ const CommentsSection = ({ postId }) => {
             Comments: <span>{comments.length}</span>
           </p>
           {comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} />
+            <Comment
+              key={comment._id}
+              comment={comment}
+              comments={comments}
+              setComments={setComments}
+            />
           ))}
         </div>
       )}
