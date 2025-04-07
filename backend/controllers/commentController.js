@@ -62,7 +62,7 @@ const likeComment = async (req, res) => {
   }
 
   try {
-    const foundComment = await Comment.findById(commentId);
+    const foundComment = await Comment.findById(commentId).exec();
 
     if (!foundComment) {
       return res
@@ -90,4 +90,42 @@ const likeComment = async (req, res) => {
   }
 };
 
-module.exports = { createComment, getComments, likeComment };
+const editComment = async (req, res) => {
+  const { commentId } = req.params;
+  const userId = req.user.id;
+  const { editedComment } = req.body;
+
+  if (!commentId || !userId) {
+    return res.status(400).json({ message: 'Comment ID and User ID required' });
+  }
+
+  if (!editedComment) {
+    return res.status(200).json({ message: 'No comment changes provided' });
+  }
+
+  try {
+    const foundComment = await Comment.findById(commentId).exec();
+
+    if (
+      foundComment.postCreatorId != userId &&
+      !req.user.roles.includes(2001)
+    ) {
+      return res
+        .status(403)
+        .json({ message: 'You are forbidden to edit this comment' });
+    }
+
+    foundComment.commentContent = editedComment;
+
+    await foundComment.save();
+
+    res
+      .status(200)
+      .json({ message: 'Comment successfully updated', foundComment });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error.message);
+  }
+};
+
+module.exports = { createComment, getComments, likeComment, editComment };
