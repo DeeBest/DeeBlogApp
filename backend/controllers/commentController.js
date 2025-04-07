@@ -128,4 +128,44 @@ const editComment = async (req, res) => {
   }
 };
 
-module.exports = { createComment, getComments, likeComment, editComment };
+const deleteComment = async (req, res) => {
+  const { commentId } = req.params;
+  const userId = req.user.id;
+
+  if (!commentId || !userId) {
+    return res.status(400).json({ message: 'Provide required details' });
+  }
+
+  try {
+    const foundComment = await Comment.findById(commentId).exec();
+
+    if (!foundComment) {
+      return res
+        .status(404)
+        .json({ message: `No comment with ${commentId} ID` });
+    }
+
+    if (
+      foundComment.postCreatorId != userId ||
+      !req.user.roles.includes(2001)
+    ) {
+      return res
+        .status(403)
+        .json({ message: 'You are not allowed to delete this comment' });
+    }
+
+    await Comment.deleteOne(foundComment);
+    res.status(200).json({ message: 'You successfully deleted the comment' });
+  } catch (error) {
+    console.error(500);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  createComment,
+  getComments,
+  likeComment,
+  editComment,
+  deleteComment,
+};
