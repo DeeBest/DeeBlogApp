@@ -25,6 +25,7 @@ import EditPost from './pages/EditPost';
 import Users from './components/Users';
 import UserDelete from './pages/UserDelete';
 import Post from './pages/Post';
+import CommentDelete from './pages/CommentDelete';
 
 const App = () => {
   return (
@@ -44,6 +45,10 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="/dashboard/profile" element={<Profile />} />
               <Route path="/dashboard/posts" element={<Posts />} />
+              <Route
+                path="/dashboard/post/delete-comment/:commentId"
+                element={<CommentDelete />}
+              />
               <Route element={<RequireAuth allowedRoles={[2001]} />}>
                 <Route
                   path="/dashboard/posts/create-post"

@@ -4,7 +4,7 @@ import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import { FaThumbsUp } from 'react-icons/fa';
 import useAuth from '../hooks/useAuth';
 import useGlobal from '../hooks/useGlobal';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Comment = ({ comment, comments, setComments }) => {
   const customAxios = useAxiosInterceptor();
@@ -71,9 +71,10 @@ const Comment = ({ comment, comments, setComments }) => {
         )
       );
       setIsEditing(false);
+      successToast('Successfully edited comment');
     } catch (error) {
       console.error(error);
-      error;
+      errorToast('Error editing comment');
     }
   };
 
@@ -136,12 +137,20 @@ const Comment = ({ comment, comments, setComments }) => {
             {auth.currentUser &&
               (comment.postCreatorId === auth.currentUser.id ||
                 auth.currentUser.roles.includes(2001)) && (
-                <button
-                  className="duration-300 hover:text-sky-500"
-                  onClick={handleEdit}
-                >
-                  Edit
-                </button>
+                <>
+                  <button
+                    className="duration-300 hover:text-sky-500"
+                    onClick={handleEdit}
+                  >
+                    Edit
+                  </button>
+                  <Link
+                    to={`/dashboard/post/delete-comment/${comment._id}`}
+                    className="duration-300 hover:text-red-500"
+                  >
+                    Delete
+                  </Link>
+                </>
               )}
           </div>
         </>
