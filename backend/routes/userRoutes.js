@@ -8,9 +8,6 @@ const {
   deleteUser,
 } = require('../controllers/userController');
 
-const rolesList = require('../config/rolesList');
-const verifyRoles = require('../middleware/verifyRoles');
-
 router.get('/', getAllUsers);
 router.post('/sign-up', createUser);
 router.get('/:id', getSingleUser);

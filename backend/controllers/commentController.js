@@ -53,6 +53,52 @@ const getComments = async (req, res) => {
   }
 };
 
+const getAllComments = async (req, res) => {
+  const startIndex = parseInt(req.query.startIndex) || 0;
+  const limit = parseInt(req.query.limit) || 9;
+  const sortDirection = req.query.sort === 'asc' ? 1 : -1;
+
+  if (!req?.user?.roles.includes(2001)) {
+    return res
+      .status(401)
+      .json({ message: 'You are forbidden to make this request' });
+  }
+
+  try {
+    const comments = await Comment.find()
+      .sort({ createdAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
+
+    if (!comments || comments.length <= 0) {
+      return res.status(404).json({ message: 'No comments found' });
+    }
+
+    const totalComments = await Comment.countDocuments();
+    const now = new Date();
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    const lastMonthsComments = await Comment.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+
+    res
+      .status(200)
+      .json({
+        message: 'Success',
+        comments,
+        totalComments,
+        lastMonthsComments,
+      });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const likeComment = async (req, res) => {
   const commentId = req.params.commentId;
   const userId = req.user.id;
@@ -168,4 +214,5 @@ module.exports = {
   likeComment,
   editComment,
   deleteComment,
+  getAllComments,
 };

@@ -10,8 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import MainLayout from './layouts/MainLayout';
 
 // Pages
-import Home from './pages/home/Home';
-import ErrorPage from './pages/errorPage/ErrorPage';
+import Home from './pages/Home';
+import ErrorPage from './pages/ErrorPage';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
