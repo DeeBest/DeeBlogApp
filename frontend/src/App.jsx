@@ -26,6 +26,7 @@ import Users from './components/Users';
 import UserDelete from './pages/UserDelete';
 import Post from './pages/Post';
 import CommentDelete from './pages/CommentDelete';
+import Comments from './components/Comments';
 
 const App = () => {
   return (
@@ -63,6 +64,7 @@ const App = () => {
                   element={<EditPost />}
                 />
                 <Route path="/dashboard/users" element={<Users />} />
+                <Route path="/dashboard/comments" element={<Comments />} />
                 <Route
                   path="/dashboard/users/delete-user/:id"
                   element={<UserDelete />}

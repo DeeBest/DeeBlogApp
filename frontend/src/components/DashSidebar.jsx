@@ -1,7 +1,7 @@
 import useTheme from '../hooks/useTheme';
 import useGlobal from '../hooks/useGlobal';
 import useAuth from '../hooks/useAuth';
-import { FaUser, FaArrowRight, FaUsers } from 'react-icons/fa';
+import { FaUser, FaArrowRight, FaUsers, FaComments } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
 import { NavLink } from 'react-router-dom';
 
@@ -42,6 +42,12 @@ const DashSidebar = () => {
             <div className="flex items-center gap-2 p-1 font-semibold">
               <FaUsers className="text-xl" />
               <p>Users</p>
+            </div>
+          </NavLink>
+          <NavLink to="/dashboard/comments" className={linkClass}>
+            <div className="flex items-center gap-2 p-1 font-semibold">
+              <FaComments className="text-xl" />
+              <p>Comments</p>
             </div>
           </NavLink>
         </>
