@@ -5,6 +5,7 @@ import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import placeHolderImg from '../assets/placeholder-img.png';
 import CallToAction from '../components/CallToAction';
 import CommentsSection from '../components/CommentsSection';
+import RecentArticles from '../components/RecentArticles';
 
 const Post = () => {
   const [post, setPost] = useState(null);
@@ -55,6 +56,7 @@ const Post = () => {
       ></div>
       <CallToAction />
       <CommentsSection postId={post && post._id} />
+      <RecentArticles />
     </div>
   );
 };
