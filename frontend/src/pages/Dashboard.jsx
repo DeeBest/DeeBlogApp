@@ -35,13 +35,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="relative flex flex-col flex-1 w-full min-h-full gap-3 p-2 mx-auto sm:flex-row sm:text-center">
+    <div className="relative flex flex-1 w-full h-[calc(100vh-100px)] gap-3 p-2 mx-auto sm:flex-row sm:text-center flex-col">
       <Overlay
         handleFunction={handleDeleteUser}
         paraContent="are you sure you want delete your account?"
       />
       <DashSidebar />
-      <Outlet />
+      <div className="flex-1 w-full h-full overflow-hidden">
+        <Outlet />
+      </div>
     </div>
   );
 };

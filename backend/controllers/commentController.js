@@ -66,7 +66,7 @@ const getAllComments = async (req, res) => {
 
   try {
     const comments = await Comment.find()
-      .sort({ createdAt: sortDirection })
+      .sort({ updatedAt: sortDirection })
       .skip(startIndex)
       .limit(limit);
 
@@ -85,14 +85,12 @@ const getAllComments = async (req, res) => {
       createdAt: { $gte: oneMonthAgo },
     });
 
-    res
-      .status(200)
-      .json({
-        message: 'Success',
-        comments,
-        totalComments,
-        lastMonthsComments,
-      });
+    res.status(200).json({
+      message: 'Success',
+      comments,
+      totalComments,
+      lastMonthsComments,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });

@@ -6,9 +6,8 @@
   font-size: 1.05rem;
   min-height: 100px;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
+td {
+  min-width: 150px;
 }
 th,
 td {

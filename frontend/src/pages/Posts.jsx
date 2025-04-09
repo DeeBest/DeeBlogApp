@@ -49,7 +49,7 @@ const Posts = () => {
     <div
       className={`${
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
-      } sm:w-3/4 w-full flex-1 flex flex-col items-center gap-2 p-2 rounded shadow-sm table-auto overflow-x-scroll`}
+      } flex flex-col flex-1 w-full h-[calc(100vh-250px)] gap-4 p-2 rounded-md overflow-hidden`}
     >
       <div className="flex items-center justify-between w-full gap-2">
         <h1 className="text-4xl font-bold">Posts</h1>
@@ -70,46 +70,54 @@ const Posts = () => {
         </div>
       ) : (
         <>
-          <table>
-            <thead>
-              <tr className="dark:bg-slate-400 dark:text-slate-700 bg-slate-700 text-slate-400">
-                <td>Date Updated</td>
-                <td>Title</td>
-                <td>Category</td>
-                {auth.currentUser.roles.includes(2001) && <td>Actions</td>}
-              </tr>
-            </thead>
-            <tbody>
-              {posts.map((post) => {
-                return (
-                  <tr key={post._id}>
-                    <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
-                    <td>
-                      <Link
-                        to={`/post/${post.slug}`}
-                        className="underline duration-300 decoration-rose-400 hover:decoration-transparent"
-                      >
-                        {post.slug}
-                      </Link>
-                    </td>
-                    <td>{post.postCategory}</td>
-                    {auth.currentUser.roles.includes(2001) && (
-                      <td>
-                        <div>
-                          <Link to={`/dashboard/posts/edit-post/${post._id}`}>
-                            <FaPen className="edit-icon table-icon" />
-                          </Link>
-                          <Link to={`/dashboard/posts/delete-post/${post._id}`}>
-                            <FaTrash className="delete-icon table-icon" />
-                          </Link>
-                        </div>
-                      </td>
-                    )}
+          <div className="overflow-y-auto">
+            <div className="overflow-x-auto">
+              <table>
+                <thead>
+                  <tr className="dark:bg-slate-400 dark:text-slate-700 bg-slate-700 text-slate-400">
+                    <td>Date Updated</td>
+                    <td>Title</td>
+                    <td>Category</td>
+                    {auth.currentUser.roles.includes(2001) && <td>Actions</td>}
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  {posts.map((post) => {
+                    return (
+                      <tr key={post._id}>
+                        <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
+                        <td>
+                          <Link
+                            to={`/post/${post.slug}`}
+                            className="underline duration-300 decoration-rose-400 hover:decoration-transparent"
+                          >
+                            {post.slug}
+                          </Link>
+                        </td>
+                        <td>{post.postCategory}</td>
+                        {auth.currentUser.roles.includes(2001) && (
+                          <td>
+                            <div>
+                              <Link
+                                to={`/dashboard/posts/edit-post/${post._id}`}
+                              >
+                                <FaPen className="edit-icon table-icon" />
+                              </Link>
+                              <Link
+                                to={`/dashboard/posts/delete-post/${post._id}`}
+                              >
+                                <FaTrash className="delete-icon table-icon" />
+                              </Link>
+                            </div>
+                          </td>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
           {showMore && (
             <button
               onClick={handleShowMore}

@@ -8,10 +8,11 @@ const {
   deleteUser,
 } = require('../controllers/userController');
 
-router.get('/', getAllUsers);
 router.post('/sign-up', createUser);
-router.get('/:id', getSingleUser);
+
 router.use(verifyJWT);
+router.get('/', getAllUsers);
+router.get('/:id', getSingleUser);
 router.put('/update-user/:id', updateUser);
 router.delete('/delete-user/:id', deleteUser);
 

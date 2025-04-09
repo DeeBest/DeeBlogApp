@@ -14,7 +14,7 @@ const DashSidebar = () => {
     <div
       className={`${
         theme === 'light' ? 'bg-indigo-100' : 'bg-slate-700'
-      } sm:w-1/4 w-full sm:min-h-full h-auto flex flex-col p-2 gap-3 rounded-md shadow-sm`}
+      } sm:w-1/4 w-full h-full flex flex-col p-2 gap-3 rounded-md shadow-sm overflow-y-auto overflow-x-hidden`}
     >
       <NavLink to="/dashboard/profile" className={linkClass}>
         <div className="flex items-center gap-2 p-1 font-semibold">
