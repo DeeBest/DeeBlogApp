@@ -35,7 +35,7 @@ const DashStats = () => {
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1 text-green-500">
-              <FaArrowUp />
+              {lastMonthUsers > 0 && <FaArrowUp />}
               <span>{lastMonthUsers}</span>
             </div>
             <p>Last Month</p>
@@ -51,7 +51,7 @@ const DashStats = () => {
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1 text-green-500">
-              <FaArrowUp />
+              {lastMonthPosts > 0 && <FaArrowUp />}
               <span>{lastMonthPosts}</span>
             </div>
             <p>Last Month</p>
@@ -67,7 +67,7 @@ const DashStats = () => {
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1 text-green-500">
-              <FaArrowUp />
+              {lastMonthComments > 0 && <FaArrowUp />}
               <span>{lastMonthComments}</span>
             </div>
             <p>Last Month</p>
@@ -75,7 +75,7 @@ const DashStats = () => {
         </div>
       </div>
       <div className="flex flex-wrap w-full gap-3">
-        <div className="flex flex-col min-w-[200px] flex-1 w-full gap-2 p-2 rounded-md shadow-md">
+        <div className="flex flex-col min-w-[250px] flex-1 w-full gap-2 p-2 rounded-md shadow-md">
           <div className="flex items-center justify-between w-full gap-3 text-lg font-semibold">
             <span>Recent Users</span>
             <Link
@@ -103,7 +103,7 @@ const DashStats = () => {
             </tbody>
           </table>
         </div>
-        <div className="flex flex-col min-w-[200px] flex-1 w-full gap-2 p-2 rounded-md shadow-md">
+        <div className="flex flex-col min-w-[250px] flex-1 w-full gap-2 p-2 rounded-md shadow-md">
           <div className="flex items-center justify-between w-full gap-3 text-lg font-semibold">
             <span>Recent Posts</span>
             <Link
@@ -131,7 +131,7 @@ const DashStats = () => {
             </tbody>
           </table>
         </div>
-        <div className="flex flex-col min-w-[200px] flex-1 w-full gap-2 p-2 rounded-md shadow-md">
+        <div className="flex flex-col min-w-[250px] flex-1 w-full gap-2 p-2 rounded-md shadow-md">
           <div className="flex items-center justify-between w-full gap-3 text-lg font-semibold">
             <span>Recent Comments</span>
             <Link

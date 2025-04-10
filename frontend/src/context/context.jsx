@@ -64,7 +64,6 @@ const ContextProvider = (props) => {
   const fetchComments = async () => {
     try {
       const res = await customAxios.get('/comments/get-all-comments?limit=9');
-      console.log(res.data);
 
       setComments(res.data.comments);
       setLastMonthComments(res.data.lastMonthsComments);
@@ -78,7 +77,6 @@ const ContextProvider = (props) => {
   const fetchPosts = async () => {
     try {
       const res = await customAxios.get('/posts');
-      console.log(res.data);
 
       setPosts(res.data.posts);
       setLastMonthPosts(res.data.lastMonthsPosts);
