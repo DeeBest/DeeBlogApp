@@ -6,10 +6,9 @@
   font-size: 1.05rem;
   min-height: 100px;
 }
-td {
-  min-width: 150px;
+table {
+  width: 100%;
 }
-th,
 td {
   padding: 10px;
   text-align: left;
