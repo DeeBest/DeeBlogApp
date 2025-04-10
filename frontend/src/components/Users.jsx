@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import useGlobal from '../hooks/useGlobal';
 import {
   FaCheck,
@@ -8,30 +6,11 @@ import {
   FaTrashAlt,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
 import useTheme from '../hooks/useTheme';
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-  const customAxios = useAxiosInterceptor();
-  const { errorToast } = useGlobal();
-  const { auth } = useAuth();
+  const { users } = useGlobal();
   const { theme } = useTheme();
-
-  const fetchUsers = async () => {
-    try {
-      const res = await customAxios.get('/users');
-
-      setUsers(res.data.users);
-    } catch (error) {
-      console.error(error);
-      errorToast(error.message);
-    }
-  };
-
-  useEffect(() => {
-    auth?.currentUser.roles.includes(2001) && fetchUsers();
-  }, []);
 
   return (
     <div

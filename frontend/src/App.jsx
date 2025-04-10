@@ -27,6 +27,7 @@ import UserDelete from './pages/UserDelete';
 import Post from './pages/Post';
 import CommentDelete from './pages/CommentDelete';
 import Comments from './components/Comments';
+import DashStats from './components/DashStats';
 
 const App = () => {
   return (
@@ -69,6 +70,7 @@ const App = () => {
                   path="/dashboard/users/delete-user/:id"
                   element={<UserDelete />}
                 />
+                <Route path="/dashboard/dash-stats" element={<DashStats />} />
               </Route>
             </Route>
           </Route>

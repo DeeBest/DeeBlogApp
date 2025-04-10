@@ -1,34 +1,15 @@
-import { useState, useEffect } from 'react';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import { FaExclamationTriangle, FaPen, FaTrash } from 'react-icons/fa';
 import useTheme from '../hooks/useTheme';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import useGlobal from '../hooks/useGlobal';
 
 const Posts = () => {
-  const [posts, setPosts] = useState([]);
-  const [showMore, setShowMore] = useState(true);
-
   const customAxios = useAxiosInterceptor();
   const { theme } = useTheme();
   const { auth } = useAuth();
-
-  const fetchPosts = async () => {
-    try {
-      const res = await customAxios.get('/posts');
-      setPosts(res.data.posts);
-
-      if (res.data.posts.length < 9) {
-        setShowMore(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  const { posts, setPosts, showMore, setShowMore } = useGlobal();
 
   const handleShowMore = async () => {
     const startIndex = posts.length;

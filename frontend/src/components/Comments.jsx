@@ -1,32 +1,11 @@
-import { useState, useEffect } from 'react';
-import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import useGlobal from '../hooks/useGlobal';
 import { FaExclamationTriangle, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
 import useTheme from '../hooks/useTheme';
 
 const Comments = () => {
-  const [comments, setComments] = useState([]);
-  const customAxios = useAxiosInterceptor();
-  const { errorToast } = useGlobal();
-  const { auth } = useAuth();
+  const { comments } = useGlobal();
   const { theme } = useTheme();
-
-  const fetchComments = async () => {
-    try {
-      const res = await customAxios.get('/comments/get-all-comments?limit=9');
-
-      setComments(res.data.comments);
-    } catch (error) {
-      console.error(error);
-      errorToast(error.message);
-    }
-  };
-
-  useEffect(() => {
-    auth.currentUser.roles.includes(2001) && fetchComments();
-  }, []);
 
   return (
     <div
