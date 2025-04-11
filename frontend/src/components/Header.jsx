@@ -49,7 +49,7 @@ const Header = () => {
 
   return (
     <header
-      className={`sticky top-0 z-10 min-w-full ${
+      className={`sticky top-0 z-[100000] min-w-full ${
         theme === 'dark' ? 'bg-slate-800' : 'bg-slate-300'
       } shadow-sm shadow-gray-400`}
     >
@@ -67,7 +67,7 @@ const Header = () => {
             placeholder="Search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-[150px] flex-1 rounded-md bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 font-semibold border-none outline-none shadow-md focus:outline-[1px] focus:outline-cyan-500"
+            className="w-[100px] md:w-[200px] rounded-md bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 font-semibold border-none outline-none shadow-md focus:outline-[1px] focus:outline-cyan-500"
           />
         </form>
         <button
@@ -76,10 +76,13 @@ const Header = () => {
         >
           {theme === 'dark' ? <FaSun /> : <FaMoon />}
         </button>
-        <nav className="flex items-center justify-between gap-3 ml-2 sm:ml-7">
+        <nav className="flex items-center justify-between gap-3 ml-4">
           <div className="items-center justify-end flex-1 hidden gap-3 p-1 ml-auto sm:flex">
             <NavLink className={linkClass} to="/">
               Home
+            </NavLink>
+            <NavLink className={linkClass} to="/posts">
+              Posts
             </NavLink>
 
             {auth?.accessToken && (
@@ -138,6 +141,9 @@ const Header = () => {
           <div className="flex flex-col items-center min-w-full gap-2 overflow-hidden">
             <NavLink className={linkClass} to="/">
               Home
+            </NavLink>
+            <NavLink className={linkClass} to="/posts">
+              Posts
             </NavLink>
 
             {auth?.accessToken && (

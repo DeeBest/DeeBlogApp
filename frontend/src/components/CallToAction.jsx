@@ -3,7 +3,7 @@ import placeholderImg from '../assets/placeholder-img.png';
 
 const CallToAction = () => {
   return (
-    <div className="w-full sm:w-[75%] mx-auto flex flex-col sm:flex-row my-10 border border-rose-400 p-4 rounded-tl-3xl rounded-br-3xl">
+    <div className="flex flex-col w-full p-4 mx-auto my-10 border sm:flex-row border-rose-400 rounded-tl-3xl rounded-br-3xl">
       <div className="flex flex-col items-center flex-1 gap-1">
         <h3>Learn All the secrets of mern stack.</h3>
         <p className="text-sm italic">ready to master the mern stack?</p>

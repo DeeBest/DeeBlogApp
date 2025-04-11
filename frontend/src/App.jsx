@@ -29,6 +29,7 @@ import CommentDelete from './pages/CommentDelete';
 import Comments from './components/Comments';
 import DashStats from './components/DashStats';
 import Search from './pages/Search';
+import AllPosts from './pages/AllPosts';
 
 const App = () => {
   return (
@@ -76,9 +77,8 @@ const App = () => {
             </Route>
           </Route>
 
-          <Route element={<RequireAuth allowedRoles={[2022]} />}>
-            <Route path="/search" element={<Search />} />
-          </Route>
+          <Route path="/search" element={<Search />} />
+          <Route path="/posts" element={<AllPosts />} />
 
           {/* Catch-All Route */}
           <Route path="*" element={<ErrorPage />} />

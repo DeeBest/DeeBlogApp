@@ -12,7 +12,7 @@ const Hero = () => {
         ExpressJS, React and NodeJS) Stack topics.
       </p>
       <Link
-        to="/dashboard/posts"
+        to="/posts"
         className="text-xl italic border-b-[1px] border-b-rose-400"
       >
         View All Posts
