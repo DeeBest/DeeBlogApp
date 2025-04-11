@@ -92,8 +92,10 @@ const ContextProvider = (props) => {
 
   useEffect(() => {
     fetchPosts();
-    auth?.currentUser.roles.includes(2001) && (fetchUsers(), fetchComments());
-  }, [auth.currentUser]);
+    auth?.accessToken &&
+      auth?.currentUser.roles.includes(2001) &&
+      (fetchUsers(), fetchComments());
+  }, []);
 
   const successToast = (message) => toast.success(message);
   const errorToast = (message) => toast.error(message);

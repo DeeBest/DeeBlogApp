@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Logo from './Logo';
 
 import placeholderImg from '../assets/placeholder-img.png';
@@ -15,6 +15,18 @@ const Header = () => {
   const { auth } = useAuth();
   const { toggleTheme, theme } = useTheme();
   const { linkClass, handleLogout } = useGlobal();
+  const [searchTerm, setSearchTerm] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
   const toggleMobileMenu = () => {
     const toggleMobileMenuBtn = document.getElementById(
@@ -27,33 +39,45 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <header
       className={`sticky top-0 z-10 min-w-full ${
         theme === 'dark' ? 'bg-slate-800' : 'bg-slate-300'
       } shadow-sm shadow-gray-400`}
     >
-      <section className="max-w-4xl p-4 flex justify-between items-center gap-3 mx-auto relative">
+      <section className="relative flex items-center justify-between max-w-4xl gap-3 p-4 mx-auto">
         <Logo />
-        <label htmlFor="posts-search-input" className="hidden">
-          Search Posts
-        </label>
-        <input
-          id="posts-search-input"
-          type="text"
-          minLength={5}
-          maxLength={100}
-          placeholder="Search"
-          className="w-14 sm:flex-1 rounded-lg bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 font-semibold border-none outline-none shadow-lg focus:outline-[1px] focus:outline-cyan-500"
-        />
+        <form onSubmit={handleSearch}>
+          <label htmlFor="posts-search-input" className="hidden">
+            Search Posts
+          </label>
+          <input
+            id="posts-search-input"
+            type="text"
+            minLength={5}
+            maxLength={100}
+            placeholder="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-[150px] flex-1 rounded-md bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 font-semibold border-none outline-none shadow-md focus:outline-[1px] focus:outline-cyan-500"
+          />
+        </form>
         <button
           onClick={toggleTheme}
           className="flex justify-center items-center bg-slate-50 text-slate-500 dark:bg-slate-500 dark:text-slate-50 p-1 w-8 h-8 rounded-full text-xl border-[1px] border-cyan-500 hover:animate-pulse"
         >
           {theme === 'dark' ? <FaSun /> : <FaMoon />}
         </button>
-        <nav className="gap-3 sm:gap-5 flex justify-between items-center p-4">
-          <div className="flex-1 hidden justify-center items-center gap-4 sm:flex ml-auto">
+        <nav className="flex items-center justify-between gap-3 ml-2 sm:ml-7">
+          <div className="items-center justify-end flex-1 hidden gap-3 p-1 ml-auto sm:flex">
             <NavLink className={linkClass} to="/">
               Home
             </NavLink>
@@ -67,7 +91,7 @@ const Header = () => {
             {auth?.accessToken ? (
               <button
                 onClick={handleLogout}
-                className="hover:opacity-85 duration-300"
+                className="w-20 duration-300 hover:opacity-85"
               >
                 Sign Out
               </button>
@@ -79,7 +103,7 @@ const Header = () => {
           </div>
           <div
             id="toggle-mobile-menu-btn"
-            className="ml-auto inline-block sm:hidden"
+            className="inline-block ml-auto sm:hidden"
           >
             {isMobileMenuOpen ? (
               <button
@@ -100,32 +124,40 @@ const Header = () => {
         </nav>
         <nav
           id="mobile-menu"
-          className={
-            isMobileMenuOpen
-              ? 'w-full h-screen z-50 flex flex-col items-center justify-start gap-4 p-4 absolute top-[90px] left-0 bg-indigo-300 dark:bg-slate-700 overflow-hidden sm:hidden animate-open-mobile-nav'
-              : 'w-full h-0 -z-10 flex flex-col items-center justify-start gap-4 absolute top-[80px] left-0 bg-indigo-300 dark:bg-slate-700 overflow-hidden sm:hidden animate-close-mobile-nav'
-          }
+          className={`
+            ${
+              isMobileMenuOpen
+                ? 'h-screen z-20 top-[75px] p-4'
+                : 'h-0 -z-10 top-[80px] p-0'
+            } w-full flex flex-col items-center justify-start gap-4 absolute left-0 ${
+            theme === 'dark' ? 'bg-slate-800' : 'bg-slate-300'
+          } overflow-hidden sm:hidden transition-[height, z-index, top, padding] duration-300 ease-in-out
+          `}
           onClick={toggleMobileMenu}
         >
-          <div className="flex items-center gap-2 flex-col min-w-full overflow-hidden">
-            <NavLink
-              className="w-full hover:bg-slate-200 dark:hover:bg-slate-600 duration-300 p-2 text-center"
-              to="/"
-            >
+          <div className="flex flex-col items-center min-w-full gap-2 overflow-hidden">
+            <NavLink className={linkClass} to="/">
               Home
             </NavLink>
-            <NavLink
-              className="w-full hover:bg-slate-200 dark:hover:bg-slate-600 duration-300 p-2 text-center"
-              to="/posts"
-            >
-              Posts
-            </NavLink>
-            <NavLink
-              className="w-full hover:bg-slate-200 dark:hover:bg-slate-600 duration-300 p-2 text-center"
-              to="/sign-in"
-            >
-              Sign In
-            </NavLink>
+
+            {auth?.accessToken && (
+              <NavLink className={linkClass} to="/dashboard/profile">
+                Dashboard
+              </NavLink>
+            )}
+
+            {auth?.accessToken ? (
+              <button
+                onClick={handleLogout}
+                className="w-20 duration-300 hover:opacity-85"
+              >
+                Sign Out
+              </button>
+            ) : (
+              <NavLink className={linkClass} to="/sign-in">
+                Sign In
+              </NavLink>
+            )}
           </div>
         </nav>
       </section>

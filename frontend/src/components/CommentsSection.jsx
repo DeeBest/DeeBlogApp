@@ -45,7 +45,7 @@ const CommentsSection = ({ postId }) => {
 
   return (
     <div className="flex flex-col w-full">
-      {auth.currentUser ? (
+      {auth?.accessToken ? (
         <div className="flex items-center w-full gap-1">
           <p>Signed in as:</p>
           <Link
@@ -65,54 +65,56 @@ const CommentsSection = ({ postId }) => {
             >
               sign in
             </Link>{' '}
-            to comment.
+            to comment and view comments.
           </p>
         </div>
       )}
-      <div className="flex flex-col items-center p-4 mt-5 border rounded-lg border-slate-600">
-        <form className="flex flex-col w-full max-w-[400px] gap-3">
-          <textarea
-            className="p-2 text-black bg-white rounded-sm"
-            placeholder="Add comment..."
-            rows={3}
-            minLength={5}
-            maxLength={200}
-            required
-            value={commentContent}
-            onChange={(e) => setCommentContent(e.target.value)}
-          ></textarea>
-          <div className="flex items-center justify-between px-4 text-xs">
-            <p>{200 - commentContent.length} characters remaining</p>
-            <button
-              disabled={
-                !commentContent ||
-                commentContent.length <= 0 ||
-                commentContent.length > 200 ||
-                commentContent.length < 5 ||
-                isLoading
-                  ? true
-                  : false
-              }
-              className={
-                !commentContent ||
-                commentContent.length <= 0 ||
-                commentContent.length > 200 ||
-                commentContent.length < 5 ||
-                isLoading
-                  ? `cursor-not-allowed opacity-55 p-1 text-base border rounded-md border-rose-400`
-                  : `p-1 text-base duration-300 border rounded-md border-rose-400 hover:opacity-80`
-              }
-              onClick={handleSubmitComment}
-            >
-              {isLoading ? (
-                <div className="w-4 h-4 bg-transparent border-2 rounded-full border-t-transparent border-slate-500 animate-spin"></div>
-              ) : (
-                'Submit'
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
+      {auth?.accessToken && (
+        <div className="flex flex-col items-center p-4 mt-5 border rounded-lg border-slate-600">
+          <form className="flex flex-col w-full max-w-[400px] gap-3">
+            <textarea
+              className="p-2 text-black bg-white rounded-sm"
+              placeholder="Add comment..."
+              rows={3}
+              minLength={5}
+              maxLength={200}
+              required
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.target.value)}
+            ></textarea>
+            <div className="flex items-center justify-between px-4 text-xs">
+              <p>{200 - commentContent.length} characters remaining</p>
+              <button
+                disabled={
+                  !commentContent ||
+                  commentContent.length <= 0 ||
+                  commentContent.length > 200 ||
+                  commentContent.length < 5 ||
+                  isLoading
+                    ? true
+                    : false
+                }
+                className={
+                  !commentContent ||
+                  commentContent.length <= 0 ||
+                  commentContent.length > 200 ||
+                  commentContent.length < 5 ||
+                  isLoading
+                    ? `cursor-not-allowed opacity-55 p-1 text-base border rounded-md border-rose-400`
+                    : `p-1 text-base duration-300 border rounded-md border-rose-400 hover:opacity-80`
+                }
+                onClick={handleSubmitComment}
+              >
+                {isLoading ? (
+                  <div className="w-4 h-4 bg-transparent border-2 rounded-full border-t-transparent border-slate-500 animate-spin"></div>
+                ) : (
+                  'Submit'
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
       {comments.length < 0 ? (
         <div>
           <p>This post does not have comments yet.</p>

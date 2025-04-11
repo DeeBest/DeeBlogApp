@@ -24,8 +24,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users/auth', require('./routes/userAuthRoutes'));
-app.use('/api/users/auth/refresh', require('./routes/refreshTokenRoute'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/users/auth/refresh', require('./routes/refreshTokenRoute'));
 app.use('/api/posts', require('./routes/postRoutes'));
 app.use('/api/comments', require('./routes/commentRoutes'));
 
