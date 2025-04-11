@@ -21,7 +21,7 @@ const UserDelete = () => {
 
   const goBack = () => navigate(-1);
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-3">
+    <div className="flex flex-col items-center justify-center w-full gap-3 animate-slideFromRight">
       <h1 className="text-2xl font-semibold">Delete User</h1>
       <div className="flex flex-col gap-2 p-2 font-medium rounded-md bg-slate-200 text-slate-700">
         <h3 className="text-center">Are you sure you want delete user?</h3>

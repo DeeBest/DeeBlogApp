@@ -5,7 +5,7 @@ const Unauthorized = () => {
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
   return (
-    <div className="flex flex-col items-center justify-center flex-1 w-full h-full gap-6">
+    <div className="flex flex-col items-center justify-center flex-1 w-full h-full gap-6 animate-slideFromLeft">
       <FaExclamationTriangle className="text-5xl text-red-700" />
       <h1 className="text-3xl">
         You are unauthorized to visit this page.{' '}

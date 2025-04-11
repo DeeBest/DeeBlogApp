@@ -59,7 +59,7 @@ const EditPost = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-5">
+    <div className="flex flex-col items-center justify-center w-full gap-5 animate-slideFromRight">
       <h1 className="font-serif text-3xl font-semibold">Update Post</h1>
       <form className="flex flex-col w-full gap-3 p-2">
         <div className="flex flex-col w-full gap-2 sm:flex-row sm:justify-between">

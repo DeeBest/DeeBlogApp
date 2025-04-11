@@ -23,7 +23,7 @@ const PostDelete = () => {
   const goBack = () => navigate(-1);
 
   return (
-    <div className="flex items-center justify-center flex-1 w-full">
+    <div className="flex items-center justify-center flex-1 w-full animate-slideFromRight">
       <div className="flex flex-col gap-5 p-2 text-lg font-semibold bg-indigo-300 rounded-md text-slate-600">
         <h3 className="text-center">
           Are you sure you want to proceed with deleting this post?
@@ -31,13 +31,13 @@ const PostDelete = () => {
         <div className="flex items-center justify-between w-full">
           <button
             onClick={handleDeletePost}
-            className="p-2 text-white duration-300 bg-red-600 rounded-md  hover:opacity-80"
+            className="p-2 text-white duration-300 bg-red-600 rounded-md hover:opacity-80"
           >
             delete post
           </button>
           <button
             onClick={goBack}
-            className="p-2 text-white duration-300 bg-green-600 rounded-md  hover:opacity-80"
+            className="p-2 text-white duration-300 bg-green-600 rounded-md hover:opacity-80"
           >
             No, go back
           </button>

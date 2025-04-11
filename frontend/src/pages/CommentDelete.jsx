@@ -23,7 +23,7 @@ const CommentDelete = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-full p-4">
+    <div className="flex items-center justify-center w-full h-full p-4 animate-slideFromRight">
       <div className="flex flex-col gap-3 p-2 bg-white rounded-lg text-slate-700">
         <HiOutlineExclamationCircle className="self-center text-5xl font-bold" />
         <p className="w-full text-center">

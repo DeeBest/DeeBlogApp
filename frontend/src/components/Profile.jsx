@@ -101,7 +101,7 @@ const Profile = () => {
     <div
       className={`${
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
-      } sm:w-3/4 w-full flex-1 flex flex-col justify-center items-center gap-2 p-2 rounded shadow-sm`}
+      } sm:w-3/4 w-full flex-1 flex flex-col justify-center items-center gap-2 p-2 rounded shadow-sm animate-slideFromTop`}
     >
       <h3 className="text-xl font-semibold sm:text-2xl">
         {auth?.currentUser?.username}

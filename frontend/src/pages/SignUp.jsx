@@ -104,7 +104,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center flex-1 w-full gap-5 p-1 sm:flex-row">
+    <div className="flex flex-col items-center justify-center flex-1 w-full gap-5 p-1 sm:flex-row animate-slideFromLeft">
       <section className="z-0 flex flex-col items-center justify-center flex-1 gap-5 p-2">
         <Link to="/">
           <div className="flex items-center justify-center">

@@ -29,7 +29,7 @@ const Post = () => {
   }, [slug]);
 
   return (
-    <div className="flex flex-col items-center w-full gap-5">
+    <div className="flex flex-col items-center w-full gap-5 animate-slideFromLeft">
       <h1 className="font-serif text-xl font-bold">{post && post.postTitle}</h1>
       <Link
         to={`/search?postCategory=${post && post.postCategory}`}

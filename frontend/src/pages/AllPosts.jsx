@@ -6,7 +6,7 @@ import CallToAction from '../components/CallToAction';
 const AllPosts = () => {
   const { posts } = useGlobal();
   return (
-    <section>
+    <section className="flex items-center justify-center w-full animate-slideFromLeft">
       {posts.length <= 0 || !posts ? (
         <div className="flex flex-col items-center justify-center w-full gap-5">
           <FaExclamationTriangle className="text-3xl text-red-500" />

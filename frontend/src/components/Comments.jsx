@@ -11,7 +11,7 @@ const Comments = () => {
     <div
       className={`${
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
-      } flex flex-col flex-1 w-full h-[calc(100vh-250px)] gap-4 p-2 rounded-md overflow-hidden text-center`}
+      } flex flex-col flex-1 w-full h-[calc(100vh-250px)] gap-4 p-2 rounded-md overflow-hidden text-center animate-slideFromTop`}
     >
       <h1 className="text-2xl font-semibold">Comments</h1>
       {comments.length <= 0 || !comments ? (

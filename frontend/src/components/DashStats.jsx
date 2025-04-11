@@ -22,7 +22,7 @@ const DashStats = () => {
     <section
       className={`${
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
-      } flex flex-col items-center justify-center w-full gap-5 rounded-md p-3`}
+      } flex flex-col items-center justify-center w-full gap-5 rounded-md p-3 animate-slideFromTop`}
     >
       <div className="flex flex-wrap w-full gap-2 p-2 rounded-md shadow-sm">
         <div className="flex flex-col flex-1 p-1 shadow-md rounded-md min-w-[150px]">

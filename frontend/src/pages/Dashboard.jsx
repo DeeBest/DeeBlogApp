@@ -35,7 +35,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="relative flex flex-1 w-full h-[calc(100vh-100px)] gap-3 p-2 mx-auto sm:flex-row sm:text-center flex-col">
+    <div className="relative flex flex-1 w-full h-[calc(100vh-100px)] gap-3 p-2 mx-auto sm:flex-row sm:text-center flex-col animate-slideFromLeft">
       <Overlay
         handleFunction={handleDeleteUser}
         paraContent="are you sure you want delete your account?"

@@ -84,7 +84,7 @@ const Search = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center w-full gap-2 sm:flex-row">
+    <section className="flex flex-col justify-center w-full gap-2 sm:flex-row animate-slideFromLeft">
       <div className="w-full sm:w-[30%] p-2 rounded-md">
         <form className="flex flex-col w-full gap-5">
           <div className="flex flex-col w-full gap-1">

@@ -30,7 +30,7 @@ const Posts = () => {
     <div
       className={`${
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
-      } flex flex-col flex-1 w-full h-[calc(100vh-250px)] gap-4 p-2 rounded-md overflow-hidden`}
+      } flex flex-col flex-1 w-full h-[calc(100vh-250px)] gap-4 p-2 rounded-md overflow-hidden animate-slideFromTop`}
     >
       <div className="flex items-center justify-between w-full gap-2">
         <h1 className="text-4xl font-bold">Posts</h1>

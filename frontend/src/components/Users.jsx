@@ -16,7 +16,7 @@ const Users = () => {
     <div
       className={`${
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
-      } flex-col flex-1 w-full gap-4 p-2 rounded-md text-center`}
+      } flex-col flex-1 w-full gap-4 p-2 rounded-md text-center animate-slideFromTop`}
     >
       <h1 className="text-2xl font-semibold">Users</h1>
       {users.length <= 0 || !users ? (
