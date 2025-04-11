@@ -26,7 +26,7 @@ const Comments = () => {
           <div className="overflow-x-auto">
             <table className="w-full table-auto">
               <thead>
-                <tr className="text-base font-bold bg-slate-400 text-slate-700">
+                <tr className="text-base font-bold bg-slate-400 text-slate-700 whitespace-nowrap">
                   <td>Date Updated</td>
                   <td>Comment Content</td>
                   <td>Number Of Likes</td>
@@ -42,7 +42,9 @@ const Comments = () => {
                       <td>
                         {new Date(comment.updatedAt).toLocaleDateString()}
                       </td>
-                      <td>{comment.commentContent}</td>
+                      <td className="min-w-[250px]">
+                        {comment.commentContent}
+                      </td>
                       <td>{comment.numberOfLikes}</td>
                       <td>{comment.postId}</td>
                       <td>{comment.postCreatorId}</td>

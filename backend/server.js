@@ -23,9 +23,9 @@ app.get('/', (req, res) => {
   return res.status(200).json({ message: 'welcome to DeeBlogApp backend' });
 });
 
+app.use('/api/users/auth/refresh', require('./routes/refreshTokenRoute'));
 app.use('/api/users/auth', require('./routes/userAuthRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/users/auth/refresh', require('./routes/refreshTokenRoute'));
 app.use('/api/posts', require('./routes/postRoutes'));
 app.use('/api/comments', require('./routes/commentRoutes'));
 

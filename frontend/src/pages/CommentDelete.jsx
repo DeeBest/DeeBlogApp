@@ -26,7 +26,9 @@ const CommentDelete = () => {
     <div className="flex items-center justify-center w-full h-full p-4">
       <div className="flex flex-col gap-3 p-2 bg-white rounded-lg text-slate-700">
         <HiOutlineExclamationCircle className="self-center text-5xl font-bold" />
-        <p>Are you sure you want to delete this comment?</p>
+        <p className="w-full text-center">
+          Are you sure you want to delete this comment?
+        </p>
         <button
           className="p-1 mt-3 font-bold duration-300 bg-red-500 rounded-md hover:opacity-80 hover:scale-95"
           onClick={handleDeleteComment}

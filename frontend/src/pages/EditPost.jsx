@@ -59,15 +59,15 @@ const EditPost = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-full gap-5">
-      <h1 className="text-3xl font-semibold">Update Post</h1>
-      <form className="flex-1 max-w-[450px] flex flex-col gap-3 p-2">
-        <div className="flex flex-col items-center justify-between w-full gap-2 sm:flex-row">
+    <div className="flex flex-col items-center justify-center w-full gap-5">
+      <h1 className="font-serif text-3xl font-semibold">Update Post</h1>
+      <form className="flex flex-col w-full gap-3 p-2">
+        <div className="flex flex-col w-full gap-2 sm:flex-row sm:justify-between">
           <label
-            className="flex flex-col items-start flex-1 gap-1"
+            className="flex flex-col justify-start flex-1 gap-1"
             htmlFor="postTitle"
           >
-            Title:
+            <span className="sm:self-start">Title:</span>
             <input
               type="text"
               id="postTitle"
@@ -76,19 +76,19 @@ const EditPost = () => {
               value={postTitle}
               onChange={(e) => setPostTitle(e.target.value)}
               placeholder="Title"
-              className="flex-1 outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+              className="flex-1 outline-none rounded-md text-slate-700 p-1 focus:outline-[1px] focus:outline-rose-400 mb-2"
             />
           </label>
           <label
-            className="flex flex-col items-start gap-1"
+            className="flex flex-col justify-start flex-1 gap-1"
             htmlFor="postCategory"
           >
-            Category:
+            <span className="sm:self-start">Category:</span>
             <select
               id="postCategory"
               value={postCategory}
               onChange={(e) => setPostCategory(e.target.value)}
-              className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+              className="flex-1 outline-none rounded-md text-slate-700 p-1 focus:outline-[1px] focus:outline-rose-400 mb-2"
             >
               <option value="uncategorized">Select Category</option>
               <option value="mongoDB">MongoDB</option>
@@ -98,15 +98,19 @@ const EditPost = () => {
             </select>
           </label>
         </div>
-        <div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
+        <div className="flex flex-col justify-between w-full gap-2 sm:flex-row">
           <label
-            className="flex flex-col items-start flex-1 gap-1"
+            className="flex flex-col items-start flex-1 gap-2 sm:w-full"
             htmlFor="postImage"
           >
-            Image:
-            <input type="file" accept="image/*" className="flex-1" />
+            <span className="sm:self-start">Image:</span>
+            <input
+              type="file"
+              accept="image/*"
+              className="outline-none rounded-md text-slate-700 p-1 focus:border-[1px] focus:border-rose-400 mb-2"
+            />
           </label>
-          <button className="flex items-center justify-center p-1 rounded-md border border-rose-400 text-lg max-w-[200px] hover:text-slate-700 hover:bg-slate-300 self-center hover:opacity-80 duration-300">
+          <button className="flex items-center justify-center p-1 rounded-md border border-rose-400 text-lg w-full sm:w-[150px] hover:text-slate-700 hover:bg-slate-300 self-center hover:opacity-80 duration-300 whitespace-nowrap">
             {isLoading ? (
               <div className="w-4 h-4 bg-transparent border-2 rounded-full border-t-transparent border-slate-500 animate-spin"></div>
             ) : (
@@ -116,17 +120,18 @@ const EditPost = () => {
         </div>
         <label
           htmlFor="postBody"
-          className="flex flex-col items-start flex-1 gap-1"
+          className="flex flex-col items-start justify-start flex-1 gap-1"
         >
-          Post Body:
+          <span className="sm:self-start">Post Content:</span>
           <ReactQuill
             theme="snow"
             value={postBody}
             onChange={(content) => setPostBody(content)}
+            className="w-full"
           />
         </label>
         <button
-          className="flex items-center justify-center p-1 rounded-md border border-rose-400 text-lg w-[200px] hover:text-slate-700 hover:bg-slate-300 self-center hover:opacity-80 duration-300"
+          className="flex items-center justify-center p-1 rounded-md border border-rose-400 text-lg w-full sm:w-[200px] hover:text-slate-700 hover:bg-slate-300 self-center hover:opacity-80 duration-300"
           onClick={handlePostUpdate}
         >
           {isLoading ? (

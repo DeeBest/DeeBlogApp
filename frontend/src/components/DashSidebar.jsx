@@ -65,7 +65,7 @@ const DashSidebar = () => {
         </>
       )}
       <button
-        className="flex items-center self-center w-1/3 gap-2 p-1 font-semibold duration-300 rounded shadow-sm sm:w-full max-w-32 hover:opacity-80"
+        className="flex items-center self-center justify-center w-full gap-2 p-1 font-semibold duration-300 border rounded shadow-sm whitespace-nowrap border-rose-400 text-rose-400 hover:opacity-80"
         onClick={handleLogout}
       >
         <FaArrowRight />

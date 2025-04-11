@@ -22,7 +22,7 @@ const CommentsSection = ({ postId }) => {
       }
     };
 
-    fetchComments();
+    auth?.accessToken && fetchComments();
   }, [postId]);
 
   const handleSubmitComment = async (e) => {
@@ -56,7 +56,7 @@ const CommentsSection = ({ postId }) => {
           </Link>
         </div>
       ) : (
-        <div className="flex items-center justify-start w-full">
+        <div className="flex items-center justify-center w-full text-center">
           <p>
             You need to{' '}
             <Link
@@ -65,7 +65,7 @@ const CommentsSection = ({ postId }) => {
             >
               sign in
             </Link>{' '}
-            to comment and view comments.
+            to create and view comments.
           </p>
         </div>
       )}
@@ -115,25 +115,26 @@ const CommentsSection = ({ postId }) => {
           </form>
         </div>
       )}
-      {comments.length < 0 ? (
-        <div>
-          <p>This post does not have comments yet.</p>
-        </div>
-      ) : (
-        <div>
-          <p>
-            Comments: <span>{comments.length}</span>
-          </p>
-          {comments.map((comment) => (
-            <Comment
-              key={comment._id}
-              comment={comment}
-              comments={comments}
-              setComments={setComments}
-            />
-          ))}
-        </div>
-      )}
+      {auth?.accessToken &&
+        (comments.length <= 0 ? (
+          <div>
+            <p>This post does not have comments yet.</p>
+          </div>
+        ) : (
+          <div>
+            <p>
+              Comments: <span>{comments.length}</span>
+            </p>
+            {comments.map((comment) => (
+              <Comment
+                key={comment._id}
+                comment={comment}
+                comments={comments}
+                setComments={setComments}
+              />
+            ))}
+          </div>
+        ))}
     </div>
   );
 };

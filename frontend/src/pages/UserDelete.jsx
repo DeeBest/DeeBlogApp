@@ -21,19 +21,19 @@ const UserDelete = () => {
 
   const goBack = () => navigate(-1);
   return (
-    <div className="w-full flex flex-col gap-3">
+    <div className="flex flex-col items-center justify-center w-full gap-3">
       <h1 className="text-2xl font-semibold">Delete User</h1>
-      <div className="flex flex-col gap-2 p-2 bg-slate-200 text-slate-700 rounded-md font-medium">
-        <h3>Are you sure you want delete user?</h3>
-        <div className="flex justify-between items-center w-full">
+      <div className="flex flex-col gap-2 p-2 font-medium rounded-md bg-slate-200 text-slate-700">
+        <h3 className="text-center">Are you sure you want delete user?</h3>
+        <div className="flex items-center justify-between w-full">
           <button
-            className="bg-red-600 text-white p-1 text-base font-semibold rounded-md hover:opacity-85 duration-300"
+            className="p-1 text-base font-semibold text-white duration-300 bg-red-600 rounded-md hover:opacity-85"
             onClick={handleUserDelete}
           >
             Delete
           </button>
           <button
-            className="bg-green-400 text-white p-1 text-base font-semibold rounded-md hover:opacity-85 duration-300"
+            className="p-1 text-base font-semibold text-white duration-300 bg-green-400 rounded-md hover:opacity-85"
             onClick={goBack}
           >
             Cancel

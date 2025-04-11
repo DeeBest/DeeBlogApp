@@ -114,7 +114,7 @@ const Search = () => {
             <select
               className="p-1 rounded-md text-slate-500"
               id="sort"
-              value={searchData.sort}
+              defaultValue={searchData.sort}
               onChange={(e) =>
                 setSearchData({ ...searchData, sort: e.target.value })
               }

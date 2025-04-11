@@ -1,6 +1,5 @@
 import placeholderImg from '../assets/placeholder-img.png';
 import { FaInfoCircle, FaTimes, FaCheck } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
@@ -104,19 +103,19 @@ const Profile = () => {
         theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'
       } sm:w-3/4 w-full flex-1 flex flex-col justify-center items-center gap-2 p-2 rounded shadow-sm`}
     >
-      <h3 className="text-xl sm:text-2xl font-semibold">
+      <h3 className="text-xl font-semibold sm:text-2xl">
         {auth?.currentUser?.username}
       </h3>
       <div className="w-24 h-24 rounded-full border-[7px] shadow-black shadow-sm dark:shadow-white">
         <img
           src={placeholderImg}
           alt="placeholder image"
-          className="w-full h-full object-cover rounded-full"
+          className="object-cover w-full h-full rounded-full"
         />
       </div>
       <form className="flex-1 w-full sm:max-w-[450px] flex flex-col gap-2 p-2 rounded-md">
         <p
-          className="text-rose-700 dark:text-rose-300 text-xs font-medium rounded-sm mb-3"
+          className="mb-3 text-xs font-medium rounded-sm text-rose-700 dark:text-rose-300"
           ref={errorRef}
           aria-live="assertive"
         >
@@ -164,7 +163,7 @@ const Profile = () => {
               : 'translateX-[10000%] -z-10 opacity-0 h-0'
           }
         >
-          <FaInfoCircle className="block text-red-300 text-base mb-1" />
+          <FaInfoCircle className="block mb-1 text-base text-red-300" />
           4 to 24 characters. <br />
           Must begin with a letter. <br />
           Letter, numbers, underscores and hyphens allowed.
@@ -211,7 +210,7 @@ const Profile = () => {
               : 'translateX-[10000%] -z-10 opacity-0 h-0'
           }
         >
-          <FaInfoCircle className="block text-red-300 text-base mb-1" />
+          <FaInfoCircle className="block mb-1 text-base text-red-300" />
           5 to 50 characters. <br />
           Must begin with a letter. <br />
           Must contain the following symbol.
@@ -259,7 +258,7 @@ const Profile = () => {
               : 'translateX-[10000%] -z-10 opacity-0 h-0'
           }
         >
-          <FaInfoCircle className="block text-red-300 text-base mb-1" />
+          <FaInfoCircle className="block mb-1 text-base text-red-300" />
           8 to 24 characters. <br />
           Must include lowercase and uppercase letters, a number and a special
           character. <br />
@@ -311,7 +310,7 @@ const Profile = () => {
               : 'translateX-[10000%] -z-10 opacity-0 h-0'
           }
         >
-          <FaInfoCircle className="block text-red-300 text-base mb-1" />
+          <FaInfoCircle className="block mb-1 text-base text-red-300" />
           Must match the first password input field.
         </p>
         <button
@@ -328,14 +327,14 @@ const Profile = () => {
           }
         >
           {isLoading ? (
-            <div className="w-4 h-4 rounded-full bg-transparent border-2 border-t-transparent border-slate-500 animate-spin"></div>
+            <div className="w-4 h-4 bg-transparent border-2 rounded-full border-t-transparent border-slate-500 animate-spin"></div>
           ) : (
             'Update Profile'
           )}
         </button>
       </form>
 
-      <div className="flex-1 min-w-[300px] max-w-[450px] flex justify-between items-center mt-3 text-red-600 font-medium">
+      <div className="flex-1 min-w-[300px] max-w-[450px] flex justify-between items-center mt-3 text-red-600 font-medium p-4">
         <button
           className={`hover:opacity-70 duration-300`}
           onClick={toggleOverlay}

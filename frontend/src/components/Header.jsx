@@ -62,7 +62,7 @@ const Header = () => {
           <input
             id="posts-search-input"
             type="text"
-            minLength={5}
+            minLength={2}
             maxLength={100}
             placeholder="Search"
             value={searchTerm}

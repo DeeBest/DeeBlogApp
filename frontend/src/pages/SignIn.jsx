@@ -66,27 +66,27 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex-1 w-full flex flex-col justify-center items-center gap-5 p-1 sm:flex-row">
-      <section className="flex-1 flex flex-col justify-center items-center p-2 gap-5 z-0">
+    <div className="flex flex-col items-center justify-center flex-1 w-full gap-5 p-1 sm:flex-row">
+      <section className="z-0 flex flex-col items-center justify-center flex-1 gap-5 p-2">
         <Link to="/">
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex justify-center items-center bg-rose-500 rounded-full border-[1px] border-cyan-500"></div>
-            <h1 className="text-slate-50 dark:text-slate-700 text-2xl sm:text-3xl md:text-4xl -ml-12 md:-ml-16 font-extrabold italic z-10 p-1 bg-gradient-to-l from-rose-300 via-rose-400 to-rose-500 rounded-xl">
+            <h1 className="z-10 p-1 -ml-12 text-2xl italic font-extrabold text-slate-50 dark:text-slate-700 sm:text-3xl md:text-4xl md:-ml-16 bg-gradient-to-l from-rose-300 via-rose-400 to-rose-500 rounded-xl">
               DeeBlogApp
             </h1>
           </div>
         </Link>
-        <p className="text-sm sm:text-xl text-indigo-400 capitalize">
+        <p className="text-sm text-indigo-400 capitalize sm:text-xl">
           Welcome back, sign in to broaden your mern stack knowledge
         </p>
       </section>
-      <section className="flex-1 flex justify-center items-center p-2">
+      <section className="flex items-center justify-center flex-1 w-full">
         <form
           onSubmit={handleSubmit}
-          className="flex-1 flex flex-col gap-1 text-xs sm:text-sm font-semibold max-w-96 shadow-md dark:shadow-slate-700 px-2 py-4 rounded-md"
+          className="flex flex-col flex-1 w-full gap-1 px-2 py-4 text-sm font-semibold rounded-md shadow-md sm:max-w-96 dark:shadow-slate-700"
         >
           <p
-            className="text-rose-700 dark:text-rose-300 text-xs font-medium rounded-sm mb-3"
+            className="mb-3 text-xs font-medium rounded-sm text-rose-700 dark:text-rose-300"
             ref={errorRef}
             aria-live="assertive"
           >
@@ -126,7 +126,7 @@ const SignIn = () => {
             disabled={!email || !password || isLoading ? true : false}
           >
             {isLoading ? (
-              <div className="w-4 h-4 rounded-full bg-transparent border-2 border-t-transparent border-slate-500 animate-spin"></div>
+              <div className="w-4 h-4 bg-transparent border-2 rounded-full border-t-transparent border-slate-500 animate-spin"></div>
             ) : (
               'Sign In'
             )}
