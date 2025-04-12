@@ -82,7 +82,7 @@ const Posts = () => {
                               <Link
                                 to={`/dashboard/posts/edit-post/${post._id}`}
                               >
-                                <FaPen className="edit-icon table-icon" />
+                                <FaPen className="text-indigo-400" />
                               </Link>
                               <Link
                                 to={`/dashboard/posts/delete-post/${post._id}`}

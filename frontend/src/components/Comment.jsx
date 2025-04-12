@@ -113,7 +113,7 @@ const Comment = ({ comment, comments, setComments }) => {
           </div>
         </div>
       ) : (
-        <>
+        <div className="w-full">
           <div className="w-full pl-12 mb-2">
             <p className="text-xs font-thin">{comment.commentContent}</p>
           </div>
@@ -153,7 +153,7 @@ const Comment = ({ comment, comments, setComments }) => {
                 </>
               )}
           </div>
-        </>
+        </div>
       )}
     </section>
   );
