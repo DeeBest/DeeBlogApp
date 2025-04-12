@@ -1,13 +1,13 @@
-import placeholderImg from '../assets/placeholder-img.png';
+import insertImg from '../utils/insertImg';
 import { Link } from 'react-router-dom';
 
 const PostCard = ({ recentPost }) => {
   return (
     <div className=" w-full sm:w-[250px] border border-rose-400 rounded-lg overflow-hidden group relative h-[350px]">
       <img
-        src={placeholderImg}
+        src={insertImg(recentPost)}
         alt="post image"
-        className="object-cover h-[200px] z-20 group-hover:h-[160px] transition-[height] duration-300 ease-out w-full"
+        className="object-contain bg-white h-[200px] z-20 group-hover:h-[160px] transition-[height] duration-300 ease-out w-full"
       />
       <div className="flex flex-col w-full p-2">
         <h1 className="text-xl font-semibold line-clamp-2">
