@@ -70,7 +70,7 @@ const CommentsSection = ({ postId }) => {
         </div>
       )}
       {auth?.accessToken && (
-        <div className="flex flex-col items-center p-4 mt-5 border rounded-lg border-slate-600">
+        <div className="flex flex-col items-center p-4 my-5">
           <form className="flex flex-col w-full max-w-[400px] gap-3">
             <textarea
               className="p-2 text-black bg-white rounded-sm"

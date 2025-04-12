@@ -6,6 +6,7 @@ import placeHolderImg from '../assets/placeholder-img.png';
 import CallToAction from '../components/CallToAction';
 import CommentsSection from '../components/CommentsSection';
 import RecentArticles from '../components/RecentArticles';
+import insertImg from '../utils/insertImg';
 
 const Post = () => {
   const [post, setPost] = useState(null);
@@ -38,11 +39,11 @@ const Post = () => {
         {post && post.postCategory}
       </Link>
       <div className="flex flex-col items-center justify-center w-full max-h-[350px] overflow-hidden rounded-md">
-        <div className="flex items-center justify-center w-full overflow-hidden">
+        <div className="w-full overflow-hidden justify-center max-h-[250px] bg-white flex">
           <img
-            src={placeHolderImg}
+            src={post && insertImg(post)}
             alt="placeholderImg"
-            className="block object-contain w-full"
+            className="object-contain"
           />
         </div>
         <div className="flex items-center justify-between w-full p-1 text-xs italic">

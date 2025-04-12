@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 
 const PostCard = ({ recentPost }) => {
   return (
-    <div className=" w-full sm:w-[250px] border border-rose-400 rounded-lg overflow-hidden group relative h-[350px]">
-      <img
-        src={insertImg(recentPost)}
-        alt="post image"
-        className="object-contain bg-white h-[200px] z-20 group-hover:h-[160px] transition-[height] duration-300 ease-out w-full"
-      />
+    <div className=" w-full sm:w-[250px] rounded-lg overflow-hidden group relative h-[350px]">
+      <Link to={`/post/${recentPost.slug}`}>
+        <img
+          src={insertImg(recentPost)}
+          alt="post image"
+          className="object-contain bg-white h-[200px] z-20 group-hover:h-[160px] transition-[height] duration-300 ease-out w-full"
+        />
+      </Link>
       <div className="flex flex-col w-full p-2">
         <h1 className="text-xl font-semibold line-clamp-2">
           {recentPost.postTitle}
