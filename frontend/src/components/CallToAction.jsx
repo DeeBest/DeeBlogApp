@@ -3,7 +3,7 @@ import callToActionImg from '../assets/callToActionImg.jpg';
 
 const CallToAction = () => {
   return (
-    <div className="flex flex-col w-full gap-5 p-4 mx-auto my-10 sm:flex-row-reverse">
+    <div className="flex flex-col w-full gap-5 p-4 mx-auto sm:flex-row-reverse">
       <div className="flex flex-col items-center flex-1 gap-1 sm:justify-center">
         <h3 className="font-serif text-2xl text-center">
           Learn All the secrets of mern stack.

@@ -1,5 +1,3 @@
-import { opacity } from 'html2canvas/dist/types/css/property-descriptors/opacity';
-
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
