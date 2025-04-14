@@ -25,6 +25,7 @@ const userSchema = new Schema(
         default: 2022,
       },
       admin: Number,
+      demoAdmin: Number,
     },
   },
   {

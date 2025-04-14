@@ -90,7 +90,9 @@ const Comment = ({ comment, comments, setComments }) => {
       ) : (
         <span>@Anonymous</span>
       )}
-      {isEditing ? (
+      {(comment.postCreatorId === auth.currentUser.id ||
+        auth.currentUser.roles.includes(2001)) &&
+      isEditing ? (
         <div className="flex flex-col w-full gap-2">
           <textarea
             value={editedComment}
@@ -136,7 +138,8 @@ const Comment = ({ comment, comments, setComments }) => {
             </p>
             {auth.currentUser &&
               (comment.postCreatorId === auth.currentUser.id ||
-                auth.currentUser.roles.includes(2001)) && (
+                auth.currentUser.roles.includes(2001) ||
+                auth.currentUser.roles.includes(1954)) && (
                 <>
                   <button
                     className="duration-300 hover:text-sky-500"
@@ -145,7 +148,7 @@ const Comment = ({ comment, comments, setComments }) => {
                     Edit
                   </button>
                   <Link
-                    to={`/dashboard/post/delete-comment/${comment._id}`}
+                    to={`/dashboard/post/delete-comment/${comment._id}/${comment.postCreatorId}`}
                     className="duration-300 hover:text-red-500"
                   >
                     Delete

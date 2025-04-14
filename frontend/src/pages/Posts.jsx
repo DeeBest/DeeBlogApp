@@ -34,7 +34,8 @@ const Posts = () => {
     >
       <div className="flex items-center justify-between w-full gap-2">
         <h1 className="text-4xl font-bold">Posts</h1>
-        {auth?.currentUser?.roles?.includes(2001) && (
+        {(auth?.currentUser?.roles?.includes(2001) ||
+          auth?.currentUser?.roles?.includes(1954)) && (
           <Link to="/dashboard/posts/create-post">
             <button className="p-2 duration-300 border-2 rounded-md border-rose-400 hover:opacity-85">
               Create Post
@@ -59,7 +60,10 @@ const Posts = () => {
                     <td>Date Updated</td>
                     <td>Title</td>
                     <td>Category</td>
-                    {auth.currentUser.roles.includes(2001) && <td>Actions</td>}
+                    {(auth?.currentUser?.roles.includes(2001) ||
+                      auth?.currentUser?.roles.includes(1954)) && (
+                      <td>Actions</td>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -76,7 +80,8 @@ const Posts = () => {
                           </Link>
                         </td>
                         <td>{post.postCategory}</td>
-                        {auth.currentUser.roles.includes(2001) && (
+                        {(auth?.currentUser?.roles.includes(2001) ||
+                          auth?.currentUser?.roles.includes(1954)) && (
                           <td>
                             <div>
                               <Link

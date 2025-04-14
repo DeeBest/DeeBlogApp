@@ -2,10 +2,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useGlobal from '../hooks/useGlobal';
 import useAxiosInterceptor from '../hooks/useAxiosInterceptor';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import useAuth from '../hooks/useAuth';
 
 const CommentDelete = () => {
-  const { commentId } = useParams();
+  const { commentId, postCreatorId } = useParams();
   const { successToast, errorToast } = useGlobal();
+  const { auth } = useAuth();
   const navigate = useNavigate();
   const customAxios = useAxiosInterceptor();
 
@@ -22,6 +24,11 @@ const CommentDelete = () => {
     }
   };
 
+  const rejectDelete = () => {
+    alert('You are not allowed  to delete this comment');
+    goBack();
+  };
+
   return (
     <div className="flex items-center justify-center w-full h-full p-4 animate-slideFromRight">
       <div className="flex flex-col gap-3 p-2 bg-white rounded-lg text-slate-700">
@@ -31,7 +38,12 @@ const CommentDelete = () => {
         </p>
         <button
           className="p-1 mt-3 font-bold duration-300 bg-red-500 rounded-md hover:opacity-80 hover:scale-95"
-          onClick={handleDeleteComment}
+          onClick={
+            auth.currentUser.id === postCreatorId ||
+            auth.currentUser.roles.includes(2001)
+              ? handleDeleteComment
+              : rejectDelete
+          }
         >
           Yes, I am sure
         </button>

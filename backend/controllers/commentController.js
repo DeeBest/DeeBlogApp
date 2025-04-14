@@ -58,7 +58,7 @@ const getAllComments = async (req, res) => {
   const limit = parseInt(req.query.limit) || 9;
   const sortDirection = req.query.sort === 'asc' ? 1 : -1;
 
-  if (!req?.user?.roles.includes(2001)) {
+  if (!(req?.user?.roles.includes(2001) || req?.user?.roles.includes(1954))) {
     return res
       .status(401)
       .json({ message: 'You are forbidden to make this request' });
@@ -190,7 +190,7 @@ const deleteComment = async (req, res) => {
     }
 
     if (
-      foundComment.postCreatorId != userId ||
+      foundComment.postCreatorId != userId &&
       !req.user.roles.includes(2001)
     ) {
       return res

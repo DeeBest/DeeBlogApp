@@ -2,9 +2,11 @@ import useGlobal from '../hooks/useGlobal';
 import { FaExclamationTriangle, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
+import useAuth from '../hooks/useAuth';
 
 const Comments = () => {
   const { comments } = useGlobal();
+  const { auth } = useAuth();
   const { theme } = useTheme();
 
   return (
@@ -50,7 +52,11 @@ const Comments = () => {
                       <td>{comment.postCreatorId}</td>
                       <td>
                         <Link
-                          to={`/dashboard/post/delete-comment/${comment._id}`}
+                          to={
+                            auth.currentUser.roles.includes(1954)
+                              ? '/unauthorized'
+                              : `/dashboard/post/delete-comment/${comment._id}`
+                          }
                         >
                           <FaTrashAlt className="text-red-400 duration-300 hover:scale-90 hover:opacity-85" />
                         </Link>

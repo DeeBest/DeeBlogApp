@@ -20,16 +20,18 @@ const PostCard = ({ recentPost }) => {
         </h1>
         <div className="flex items-center justify-between w-full mt-3">
           <span className="text-sm italic">{recentPost.postCategory}</span>
-          {auth?.accessToken && auth?.currentUser?.roles.includes(2001) && (
-            <div className="flex items-center gap-3">
-              <Link to={`/dashboard/posts/edit-post/${recentPost._id}`}>
-                <FaPen className="text-sm text-indigo-400 duration-300 hover:opacity-70" />
-              </Link>
-              <Link to={`/dashboard/posts/delete-post/${recentPost._id}`}>
-                <FaTrash className="text-sm text-red-400 duration-300 hover:opacity-70" />
-              </Link>
-            </div>
-          )}
+          {auth?.accessToken &&
+            (auth?.currentUser?.roles.includes(2001) ||
+              auth?.currentUser?.roles.includes(1954)) && (
+              <div className="flex items-center gap-3">
+                <Link to={`/dashboard/posts/edit-post/${recentPost._id}`}>
+                  <FaPen className="text-sm text-indigo-400 duration-300 hover:opacity-70" />
+                </Link>
+                <Link to={`/dashboard/posts/delete-post/${recentPost._id}`}>
+                  <FaTrash className="text-sm text-red-400 duration-300 hover:opacity-70" />
+                </Link>
+              </div>
+            )}
         </div>
         <Link
           to={`/post/${recentPost.slug}`}

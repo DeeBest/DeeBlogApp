@@ -93,7 +93,8 @@ const ContextProvider = (props) => {
   useEffect(() => {
     fetchPosts();
     auth?.accessToken &&
-      auth?.currentUser.roles.includes(2001) &&
+      (auth?.currentUser.roles.includes(2001) ||
+        auth?.currentUser.roles.includes(1954)) &&
       (fetchUsers(), fetchComments());
   }, []);
 

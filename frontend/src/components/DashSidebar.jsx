@@ -42,7 +42,8 @@ const DashSidebar = () => {
           <p>Posts</p>
         </div>
       </NavLink>
-      {auth.currentUser.roles.includes(2001) && (
+      {(auth?.currentUser?.roles.includes(2001) ||
+        auth?.currentUser?.roles.includes(1954)) && (
         <>
           <NavLink to="/dashboard/users" className={linkClass}>
             <div className="flex items-center gap-2 p-1 font-semibold">

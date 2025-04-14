@@ -50,33 +50,34 @@ const App = () => {
               <Route path="/dashboard/profile" element={<Profile />} />
               <Route path="/dashboard/posts" element={<Posts />} />
               <Route
-                path="/dashboard/post/delete-comment/:commentId"
+                path="/dashboard/post/delete-comment/:commentId/:postCreatorId"
                 element={<CommentDelete />}
               />
-              <Route element={<RequireAuth allowedRoles={[2001]} />}>
-                <Route
-                  path="/dashboard/posts/create-post"
-                  element={<CreatePost />}
-                />
-                <Route
-                  path="/dashboard/posts/delete-post/:id"
-                  element={<PostDelete />}
-                />
-                <Route
-                  path="/dashboard/posts/edit-post/:id"
-                  element={<EditPost />}
-                />
+              <Route element={<RequireAuth allowedRoles={[2001, 1954]} />}>
                 <Route path="/dashboard/users" element={<Users />} />
                 <Route path="/dashboard/comments" element={<Comments />} />
-                <Route
-                  path="/dashboard/users/delete-user/:id"
-                  element={<UserDelete />}
-                />
                 <Route path="/dashboard/dash-stats" element={<DashStats />} />
               </Route>
             </Route>
           </Route>
-
+          <Route element={<RequireAuth allowedRoles={[2001]} />}>
+            <Route
+              path="/dashboard/posts/create-post"
+              element={<CreatePost />}
+            />
+            <Route
+              path="/dashboard/posts/delete-post/:id"
+              element={<PostDelete />}
+            />
+            <Route
+              path="/dashboard/posts/edit-post/:id"
+              element={<EditPost />}
+            />
+            <Route
+              path="/dashboard/users/delete-user/:id"
+              element={<UserDelete />}
+            />
+          </Route>
           <Route path="/search" element={<Search />} />
           <Route path="/posts" element={<AllPosts />} />
 
