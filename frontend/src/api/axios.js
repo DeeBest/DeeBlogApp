@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_URL = 'https://deeblogappbackend.onrender.com';
+const BACKEND_URL = 'https://deeblogappbackend.onrender.com/api';
 
 const customAxios = axios.create({
   baseURL: BACKEND_URL,
