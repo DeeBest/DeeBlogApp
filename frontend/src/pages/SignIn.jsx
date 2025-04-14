@@ -80,7 +80,18 @@ const SignIn = () => {
           Welcome back, sign in to broaden your mern stack knowledge
         </p>
       </section>
-      <section className="flex items-center justify-center flex-1 w-full">
+      <section className="flex flex-col items-center justify-center flex-1 w-full">
+        <div className="flex flex-col w-full gap-1 text-sm">
+          <h3 className="mb-1">
+            Use the below credentials to log in as a demo admin
+          </h3>
+          <p className="whitespace-nowrap">
+            Email: <span className="text-rose-400">DemoAdmin@gmail.com</span>
+          </p>
+          <p className="whitespace-nowrap">
+            Password: <span className="text-rose-400">DemoAdmin@gmail123</span>
+          </p>
+        </div>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col flex-1 w-full gap-1 px-2 py-4 text-sm font-semibold rounded-md shadow-md sm:max-w-96 dark:shadow-slate-700"
